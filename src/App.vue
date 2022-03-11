@@ -1,5 +1,6 @@
 <template>
 	<router-view />
+	<div>测试 dev</div>
 </template>
 
 <script></script>
