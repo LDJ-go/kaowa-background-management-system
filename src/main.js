@@ -3,4 +3,23 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-createApp(App).use(store).use(router).mount("#app");
+// ElementPlus
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+// ELIcons
+import * as ELIcons from "@element-plus/icons-vue";
+
+// SvgIcon
+import SvgIcon from "@/assets/icons/index";
+
+// Scss
+import "@/styles/index.scss";
+
+const app = createApp(App);
+
+SvgIcon(app);
+for (const iconName in ELIcons) {
+	app.component(iconName, ELIcons[iconName]);
+}
+
+app.use(store).use(ElementPlus).use(router).mount("#app");
