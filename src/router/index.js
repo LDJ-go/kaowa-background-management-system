@@ -4,7 +4,7 @@ const routes = [
 	{
 		path: "/login",
 		name: "Login",
-		component: () => import("../views/login"),
+		component: () => import("../views/Login"),
 	},
 	{
 		path: "/",
@@ -14,8 +14,73 @@ const routes = [
 		children: [
 			{
 				path: "user-list",
-				name: "user-list",
-				component: () => import("@/views/user-list/index.vue"),
+				name: "UserList",
+				component: () => import("@/views/UserList"),
+			},
+			{
+				path: "organization-list",
+				name: "OrganizationList",
+				component: () => import("@/views/OrganizationList"),
+			},
+			{
+				path: "official-article-list",
+				name: "OfficialArticleList",
+				component: () => import("@/views/OfficialArticleList"),
+			},
+			{
+				path: "user-article-list",
+				name: "UserArticleList",
+				component: () => import("@/views/UserArticleList"),
+			},
+			{
+				path: "article-examine",
+				name: "ArticleExamine",
+				component: () => import("@/views/ArticleExamine"),
+			},
+			{
+				path: "comment-manage",
+				name: "CommentManage",
+				component: () => import("@/views/CommentManage"),
+			},
+			{
+				path: "tag-manage",
+				name: "TagManage",
+				component: () => import("@/views/TagManage"),
+			},
+			{
+				path: "partition-manage",
+				name: "PartitionManage",
+				component: () => import("@/views/PartitionManage"),
+			},
+			{
+				path: "carousel-manage",
+				name: "CarouselManage",
+				component: () => import("@/views/CarouselManage"),
+			},
+			{
+				path: "auto-recommend",
+				name: "AutoRecommend",
+				component: () => import("@/views/AutoRecommend"),
+			},
+			{
+				path: "manual-recommend",
+				name: "ManualRecommend",
+				component: () => import("@/views/ManualRecommend"),
+			},
+			{
+				path: "administrator-manage",
+				name: "AdministratorManage",
+				component: () => import("@/views/AdministratorManage"),
+			},
+			{
+				path: "role-manage",
+				name: "RoleManage",
+				component: () => import("@/views/RoleManage"),
+			},
+			{
+				path: "data-statistics",
+				name: "DataStatistics",
+				component: () => import("@/views/DataStatistics"),
 			},
 		],
 	},

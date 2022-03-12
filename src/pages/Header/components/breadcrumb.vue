@@ -1,8 +1,8 @@
 <template>
 	<el-breadcrumb separator="/">
 		<el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
-			<span class="no-redirect" v-if="index === breadcrumbList.length - 1">{{ item.name }}</span>
-			<span class="redirect" v-else @click="handleRedirect(item.path)">{{ item.name }}</span>
+			<span class="no-redirect" v-if="index === breadcrumbList.length - 1">{{ filterPath(item.name) }}</span>
+			<span class="redirect" v-else @click="handleRedirect(item.path)">{{ filterPath(item.name) }}</span>
 		</el-breadcrumb-item>
 	</el-breadcrumb>
 </template>
@@ -10,6 +10,7 @@
 <script setup>
 	import { ref, watch } from "vue";
 	import { useRoute, useRouter } from "vue-router";
+	import filterPath from "@/utils/filter-path.js";
 
 	const route = useRoute();
 

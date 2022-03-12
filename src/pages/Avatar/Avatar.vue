@@ -7,13 +7,23 @@
 		<div class="user-container">
 			<img src="@/assets/avatar/avatar.jpg" alt="" />
 			<div class="user">
-				<span>管理员</span>
-				<span class="change">[切换账号]</span>
+				<span>管理员&nbsp;</span>
+				<el-popconfirm title="确认退出登录？" @confirm="logout" placement="right">
+					<template #reference>
+						<span class="change">[退出登录]</span>
+					</template>
+				</el-popconfirm>
 			</div>
 		</div>
 	</div>
 </template>
-<script setup></script>
+<script setup>
+	import { useStore } from "vuex";
+	const store = useStore();
+	const logout = function () {
+		store.dispatch("app/logout");
+	};
+</script>
 <style lang="scss">
 	.system-container {
 		padding: 10px 0;
@@ -45,7 +55,7 @@
 		.user {
 			.change {
 				text-decoration: underline;
-				color: skyblue;
+				color: #3cb371;
 				cursor: pointer;
 				&:hover {
 					color: rgb(55, 167, 211);

@@ -1,6 +1,7 @@
 <template>
+	<!-- ffd04b -->
 	<el-menu
-		active-text-color="#ffd04b"
+		active-text-color="#3CB371"
 		background-color="$menuBg"
 		class="el-menu-vertical-demo"
 		:default-active="defaultActive"
@@ -40,7 +41,6 @@
 	const initMenuList = async () => {
 		const res = await getMenuList();
 		menuList.value = res;
-		console.log(menuList.value[0].authName);
 	};
 	initMenuList();
 
