@@ -1,7 +1,7 @@
 <template>
 	<div>
-		<Form />
-		<el-table
+		<Form @handle-table-data="handleTableData" />
+		<!-- <el-table
 			ref="multipleTableRef"
 			:data="tableData"
 			style="width: 100%"
@@ -28,7 +28,9 @@
 					</div>
 				</template>
 			</el-table-column>
-		</el-table>
+		</el-table> -->
+		<Table :table-header="options" :table-data="tableData" :needCheckbox="true"></Table>
+
 		<div class="table-footer">
 			<div>
 				<el-button @click="batchFreeze">批量冻结</el-button>
@@ -52,11 +54,19 @@
 
 <script setup>
 	import Form from "./form.vue";
-	import { ref } from "vue";
+	import { ref, computed } from "vue";
 	import { ElMessage } from "element-plus";
+	import Table from "@/components/Table";
 	import { options } from "./options";
-	import CancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
+	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
 
+	// 表格的请求表单数据
+	const tableForm = ref({
+		query: "",
+		pagenum: 1,
+		pagesize: 2,
+	});
+	// 表格数据
 	const tableData = ref([
 		{
 			userID: 123,
@@ -87,14 +97,23 @@
 		},
 	]);
 
+	// 初始化表格数据
 	const initUserList = function () {
 		console.log("调用接口请求数据 -> 进行渲染");
+		// TODO 根据tableForm发送请求
 	};
 
+	// 筛选表格中的数据
+	const handleTableData = function (data) {
+		tableData.value = data;
+	};
+
+	// 多选选中的数据
 	let selectedUserList = ref([]);
 	const handleSelectionChange = function (selected) {
 		selectedUserList.value = selected;
 	};
+
 	// 批量冻结
 	const batchFreeze = function (event) {
 		for (let i = 0; i < selectedUserList.value.length; i++) {
@@ -104,17 +123,17 @@
 			message: "批量冻结成功",
 			type: "success",
 		});
-		CancelELButtonFocus(event);
+		cancelELButtonFocus(event);
 	};
 	// 批量启用
 	const batchThaw = function () {};
 
-	const tableForm = ref({
-		query: "",
-		pagenum: 1,
-		pagesize: 2,
+	// 分页器-总数
+	let total = ref(0);
+	total = computed(() => {
+		console.log("asd");
+		return tableData.value.length;
 	});
-	const total = ref(tableData.value.length);
 
 	const handleSizeChange = function (pageSize) {
 		tableForm.value.pagenum = 1;

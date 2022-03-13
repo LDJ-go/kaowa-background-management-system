@@ -1,11 +1,11 @@
 <template>
 	<div class="form-container">
-		<el-form ref="elForm" :model="formData" :rules="rules" size="medium" label-width="80px">
+		<el-form ref="formRef" :model="formData" :rules="rules" size="medium" label-width="80px">
 			<el-row type="default" justify="left" align="center" gutter="0">
 				<el-col :span="5">
 					<el-form-item label="用户ID :" prop="userID">
 						<el-input
-							v-model="formData.userName"
+							v-model="formData.userID"
 							placeholder="请输入用户ID"
 							clearable
 							:style="{ width: '83%' }"
@@ -15,7 +15,7 @@
 				<el-col :span="5" class="elCol">
 					<el-form-item label="用户昵称 :" prop="userName">
 						<el-input
-							v-model="formData.field102"
+							v-model="formData.userName"
 							placeholder="请输入用户昵称"
 							clearable
 							:style="{ width: '83%' }"
@@ -25,7 +25,7 @@
 				<el-col :span="5" class="elCol">
 					<el-form-item label="用户账号 :" prop="account">
 						<el-input
-							v-model="formData.field102"
+							v-model="formData.account"
 							placeholder="请输入用户账号"
 							clearable
 							:style="{ width: '83%' }"
@@ -33,15 +33,15 @@
 					</el-form-item>
 				</el-col>
 				<el-col :span="5" class="elCol">
-					<el-form-item label="登陆时间 :" prop="field103">
+					<el-form-item label="登陆时间 :" prop="lastLoginTime">
 						<el-select
-							v-model="formData.field103"
+							v-model="formData.lastLoginTime"
 							placeholder="请选择登陆时间"
 							clearable
 							:style="{ width: '83%' }"
 						>
 							<el-option
-								v-for="(item, index) in field103Options"
+								v-for="(item, index) in lastLoginTimeOptions"
 								:key="index"
 								:label="item.label"
 								:value="item.value"
@@ -51,15 +51,15 @@
 					</el-form-item>
 				</el-col>
 				<el-col :span="5" class="elCol">
-					<el-form-item label="账户状态 :" prop="field104">
+					<el-form-item label="账号状态 :" prop="accountStatus">
 						<el-select
-							v-model="formData.field104"
-							placeholder="请选择账户状态"
+							v-model="formData.accountStatus"
+							placeholder="请选择账号状态"
 							clearable
 							:style="{ width: '83%' }"
 						>
 							<el-option
-								v-for="(item, index) in field104Options"
+								v-for="(item, index) in accountStatusOptions"
 								:key="index"
 								:label="item.label"
 								:value="item.value"
@@ -77,81 +77,96 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		components: {},
-		props: [],
-		data() {
-			return {
-				formData: {
-					field101: undefined,
-					field102: undefined,
-					field103: undefined,
-					field104: undefined,
-				},
-				rules: {
-					field101: [
-						{
-							required: true,
-							message: "请输入单行文本",
-							trigger: "blur",
-						},
-					],
-					field102: [
-						{
-							required: true,
-							message: "请输入单行文本",
-							trigger: "blur",
-						},
-					],
-					field103: [],
-					field104: [],
-				},
-				field103Options: [
-					{
-						label: "最近一周",
-						value: "last-week",
-					},
-					{
-						label: "最近一月",
-						value: "last-month",
-					},
-					{
-						label: "最近一年",
-						value: "last-year",
-					},
-				],
-				field104Options: [
-					{
-						label: "全部",
-						value: "all",
-					},
-					{
-						label: "正常",
-						value: "normal",
-					},
-					{
-						label: "冻结",
-						value: "freeze",
-					},
-				],
-			};
-		},
-		computed: {},
-		watch: {},
-		created() {},
-		mounted() {},
-		methods: {
-			submitForm() {
-				this.$refs["elForm"].validate((valid) => {
-					if (!valid) return;
-					// TODO 提交表单
-				});
+<script setup>
+	import { ref, defineEmits } from "vue";
+	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
+
+	// 校验规则
+	const rules = {
+		userID: [
+			{
+				required: false,
+				message: "请输入用户ID",
+				trigger: "blur",
 			},
-			resetForm() {
-				this.$refs["elForm"].resetFields();
+		],
+		userName: [
+			{
+				required: false,
+				message: "请输入用户昵称",
+				trigger: "blur",
 			},
+		],
+		lastLoginTime: [],
+		accountStatus: [],
+	};
+	// 下拉菜单
+	const lastLoginTimeOptions = [
+		{
+			label: "最近一周",
+			value: "last-week",
 		},
+		{
+			label: "最近一月",
+			value: "last-month",
+		},
+		{
+			label: "最近一年",
+			value: "last-year",
+		},
+	];
+	const accountStatusOptions = [
+		{
+			label: "全部",
+			value: "all",
+		},
+		{
+			label: "正常",
+			value: "normal",
+		},
+		{
+			label: "冻结",
+			value: "freeze",
+		},
+	];
+
+	// 表单数据
+	let formData = ref({
+		userID: undefined,
+		userName: undefined,
+		account: undefined,
+		lastLoginTime: undefined,
+		accountStatus: undefined,
+	});
+	// 表单提交与重置
+	const formRef = ref(null);
+	const emit = defineEmits(["handle-table-data"]);
+
+	const submitForm = function () {
+		formRef.value.validate((valid) => {
+			if (valid) {
+				// TODO 发送请求
+				// 传递数据
+				emit("handle-table-data", [
+					{
+						userID: 234,
+						userName: "XH",
+						account: "18122226666",
+						sex: "男",
+						registration_time: "2022-01-26 12：01",
+						last_login_time: "2022-03-12 12：01",
+						state: "正常",
+					},
+				]);
+			} else {
+				console.log("error submit!");
+			}
+		});
+		cancelELButtonFocus(event);
+	};
+	const resetForm = function () {
+		formRef.value.resetFields();
+		cancelELButtonFocus(event);
 	};
 </script>
 
