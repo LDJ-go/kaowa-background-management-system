@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-	import getMenuList from "@/api/menu";
+	import { menuApi as getMenuList } from "@/api/index";
 	import { ref, watchEffect } from "vue";
 	import router from "@/router";
 

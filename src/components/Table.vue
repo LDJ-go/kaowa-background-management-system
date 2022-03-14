@@ -2,7 +2,7 @@
 	<div>
 		<el-table
 			ref="multipleTableRef"
-			:data="tableList"
+			:data="tableData"
 			style="width: 100%"
 			@selection-change="handleSelectionChange"
 			:header-cell-style="{ backgroundColor: '#D6F2CC' }"
@@ -20,7 +20,7 @@
 				resizable="true"
 				align="center"
 			>
-				<template v-slot="{ row }" v-if="item.prop === 'operation'">
+				<template v-slot="{ row }" v-if="item.prop === 'operation-UL'">
 					<div class="operation">
 						<span @click="toggleFix(row)">冻结</span>
 						<span @click="toggleFix(row)">查看</span>
@@ -29,6 +29,12 @@
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-OAL'">
 					<div class="operation">
 						<span @click="toggleFix(row)">编辑</span>
+						<span @click="toggleFix(row)">上线</span>
+						<span @click="toggleFix(row)">查看</span>
+					</div>
+				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
+					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
 						<span @click="toggleFix(row)">查看</span>
 					</div>
@@ -46,8 +52,10 @@
 		tableHeader: {
 			required: true,
 		},
+		// 表格数据
 		tableData: {
-			default: [],
+			type: Array,
+			default: () => [],
 			require: true,
 		},
 		needCheckbox: { default: false },
@@ -60,23 +68,6 @@
 		pagesize: 2,
 	});
 
-	// 表格数据
-	// const tableList = ref(props.tableData.value);
-
-	let tableList = ref([
-		{
-			tag: "考研",
-			articleTitle: "132",
-			publish_time: "2022.03.13",
-			visits: 123,
-			comments: 256,
-			thumbs: 200,
-			shares: 88,
-			collections: 66,
-			state: "已上线",
-		},
-	]);
-
 	// 初始化表格数据
 	const initUserList = function () {
 		console.log("调用接口请求数据 -> 进行渲染");
@@ -84,8 +75,8 @@
 	};
 
 	// 筛选表格中的数据
-	const handleTableList = function (data) {
-		tableList.value = data;
+	const handletableData = function (data) {
+		// tableData.value = data;
 	};
 </script>
 

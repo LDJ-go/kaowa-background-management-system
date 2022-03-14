@@ -30,7 +30,7 @@ export const options = [
 		width: 100,
 	},
 	{
-		prop: "operation",
+		prop: "operation-UL",
 		label: "操作",
 	},
 ];

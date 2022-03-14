@@ -1,53 +1,21 @@
 <template>
 	<div>
 		<Form @handle-table-data="handleTableData" />
-		<!-- <el-table
-			ref="multipleTableRef"
-			:data="tableData"
-			style="width: 100%"
-			@selection-change="handleSelectionChange"
-			:header-cell-style="{ backgroundColor: '#D6F2CC' }"
-			border="true"
-			highlight-current-row
-		>
-			<el-table-column type="selection" width="55" align="center" />
-			<el-table-column
-				:width="item.width"
-				:prop="item.prop"
-				:label="item.label"
-				v-for="(item, index) in options"
-				:key="index"
-				show-overflow-tooltip
-				resizable="true"
-				align="center"
-			>
-				<template v-slot="{ row }" v-if="item.prop === 'operation'">
-					<div class="operation">
-						<span @click="toggleFix(row)">冻结</span>
-						<span @click="toggleFix(row)">查看</span>
-					</div>
-				</template>
-			</el-table-column>
-		</el-table> -->
-		<Table :table-header="options" :table-data="tableData" :needCheckbox="true"></Table>
+
+		<Table :table-header="tableHeader" v-model:table-data="tableData" :needCheckbox="true"></Table>
 
 		<div class="table-footer">
 			<div>
 				<el-button @click="batchFreeze">批量冻结</el-button>
 				<el-button @click="batchThaw">批量启用</el-button>
 			</div>
-			<el-pagination
-				v-model:currentPage="tableForm.pagenum"
-				v-model:page-size="tableForm.pagesize"
-				:page-sizes="[2, 5, 10, 15]"
-				:small="small"
-				:background="true"
-				layout="total, sizes, prev, pager, next, jumper"
+			<Pagination
+				:pageNum="tableReqParam.pageNum"
+				:pageSize="tableReqParam.pageSize"
 				:total="total"
-				@size-change="handleSizeChange"
-				@current-change="handleCurrentPageChange"
-				class="pagination"
-			></el-pagination>
+				@handle-size-change="handleSizeChange"
+				@handle-current-page-change="handleCurrentPageChange"
+			></Pagination>
 		</div>
 	</div>
 </template>
@@ -57,14 +25,15 @@
 	import { ref, computed } from "vue";
 	import { ElMessage } from "element-plus";
 	import Table from "@/components/Table";
-	import { options } from "./options";
+	import Pagination from "@/components/Pagination.vue";
+	import { options as tableHeader } from "./options.js";
 	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
 
-	// 表格的请求表单数据
-	const tableForm = ref({
+	// 表格的请求参数
+	const tableReqParam = ref({
 		query: "",
-		pagenum: 1,
-		pagesize: 2,
+		pageNum: 1,
+		pageSize: 2,
 	});
 	// 表格数据
 	const tableData = ref([
@@ -100,7 +69,7 @@
 	// 初始化表格数据
 	const initUserList = function () {
 		console.log("调用接口请求数据 -> 进行渲染");
-		// TODO 根据tableForm发送请求
+		// TODO 根据tableReqParam发送请求
 	};
 
 	// 筛选表格中的数据
@@ -131,17 +100,18 @@
 	// 分页器-总数
 	let total = ref(0);
 	total = computed(() => {
-		console.log("asd");
 		return tableData.value.length;
 	});
 
 	const handleSizeChange = function (pageSize) {
-		tableForm.value.pagenum = 1;
-		tableForm.value.pagesize = pageSize;
+		console.log(pageSize);
+		tableReqParam.value.pageNum = 1;
+		tableReqParam.value.pageSize = pageSize;
 		initUserList();
 	};
 	const handleCurrentPageChange = function (pageNum) {
-		tableForm.value.pagenum = pageNum;
+		console.log(pageNum);
+		tableReqParam.value.pageNum = pageNum;
 		initUserList();
 	};
 </script>
@@ -170,11 +140,6 @@
 	.el-table {
 		// color: black;
 		border: 0.5px solid #000;
-	}
-
-	.el-pagination.is-background .el-pager li:not(.disabled).active {
-		background-color: $bgColor;
-		color: gray;
 	}
 
 	.el-button:focus,

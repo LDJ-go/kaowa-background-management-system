@@ -142,7 +142,7 @@
 	const formRef = ref(null);
 	const emit = defineEmits(["handle-table-data"]);
 
-	const submitForm = function () {
+	const submitForm = function (event) {
 		formRef.value.validate((valid) => {
 			if (valid) {
 				// TODO 发送请求
@@ -164,7 +164,7 @@
 		});
 		cancelELButtonFocus(event);
 	};
-	const resetForm = function () {
+	const resetForm = function (event) {
 		formRef.value.resetFields();
 		cancelELButtonFocus(event);
 	};
