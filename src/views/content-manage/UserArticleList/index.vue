@@ -1,20 +1,28 @@
 <template>
-	<Form
-		:selectOptions="selectOptions"
-		:inputOptions="inputOptions"
-		:formData="formData"
-		@query-table-data="queryTableData"
-	/>
-	<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
-	<div class="footer">
-		<Pagination
-			:pageNum="tableReqParam.pageNum"
-			:pageSize="tableReqParam.pageSize"
-			:total="total"
-			@handle-size-change="handleSizeChange"
-			@handle-current-page-change="handleCurrentPageChange"
-		></Pagination>
-	</div>
+	<!-- 指定文章详情路由组件的呈现位置 -->
+	<template v-if="route.matched.length === 3">
+		<router-view></router-view>
+	</template>
+
+	<!-- 用户文章列表页 -->
+	<template v-else>
+		<Form
+			:selectOptions="selectOptions"
+			:inputOptions="inputOptions"
+			:formData="formData"
+			@query-table-data="queryTableData"
+		/>
+		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
+		<div class="footer">
+			<Pagination
+				:pageNum="tableReqParam.pageNum"
+				:pageSize="tableReqParam.pageSize"
+				:total="total"
+				@handle-size-change="handleSizeChange"
+				@handle-current-page-change="handleCurrentPageChange"
+			></Pagination>
+		</div>
+	</template>
 </template>
 
 <script setup>
@@ -27,6 +35,11 @@
 	import Pagination from "@/components/Pagination.vue";
 	// 引入表头行数据
 	import tableHeader from "./table-header";
+	// 引入路由
+	import { useRoute } from "vue-router";
+
+	// 路由信息
+	const route = useRoute();
 
 	// 表单相关数据
 	const inputOptions = [

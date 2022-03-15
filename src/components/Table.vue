@@ -30,13 +30,13 @@
 					<div class="operation">
 						<span @click="toggleFix(row)">编辑</span>
 						<span @click="toggleFix(row)">上线</span>
-						<span @click="toggleFix(row)">查看</span>
+						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
 					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
-						<span @click="toggleFix(row)">查看</span>
+						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
 					</div>
 				</template>
 			</el-table-column>
@@ -46,6 +46,7 @@
 
 <script setup>
 	import { ref, defineProps } from "vue";
+	import { useRouter } from "vue-router";
 
 	// props
 	const props = defineProps({
@@ -77,6 +78,12 @@
 	// 筛选表格中的数据
 	const handletableData = function (data) {
 		// tableData.value = data;
+	};
+
+	// 路由跳转到文章详情页
+	const router = useRouter();
+	const routerToDetail = function (data, path) {
+		router.push(path);
 	};
 </script>
 

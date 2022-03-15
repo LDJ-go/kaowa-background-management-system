@@ -38,5 +38,6 @@ export default [
 	{
 		prop: "operation-OAL",
 		label: "操作",
+		width: 150,
 	},
 ];

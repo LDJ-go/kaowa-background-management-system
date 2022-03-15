@@ -9,8 +9,12 @@ export default function (path) {
 			return "用户管理 / 机构号列表";
 		case "OfficialArticleList":
 			return "官方文章列表";
+		case "OfficialArticleDetail":
+			return "官方文章详情";
 		case "UserArticleList":
 			return "用户文章列表";
+		case "UserArticleDetail":
+			return "用户文章详情";
 		case "ArticleExamine":
 			return "牛蛙内容审核";
 		case "CommentManage":

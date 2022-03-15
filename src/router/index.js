@@ -26,11 +26,25 @@ const routes = [
 				path: "official-article-list",
 				name: "OfficialArticleList",
 				component: () => import("@/views/content-manage/OfficialArticleList"),
+				children: [
+					{
+						path: "official-article-detail",
+						name: "OfficialArticleDetail",
+						component: () => import("@/views/content-manage/OfficialArticleDetail"),
+					},
+				],
 			},
 			{
 				path: "user-article-list",
 				name: "UserArticleList",
 				component: () => import("@/views/content-manage/UserArticleList"),
+				children: [
+					{
+						path: "user-article-detail",
+						name: "UserArticleDetail",
+						component: () => import("@/views/content-manage/UserArticleDetail"),
+					},
+				],
 			},
 			{
 				path: "article-examine",

@@ -18,7 +18,8 @@
 		"screenfull": "^5.1.0",
 		"vue": "^3.2.13",
 		"vue-router": "^4.0.3",
-		"vuex": "^4.0.0"
+		"vuex": "^4.0.0",
+		"wangeditor": "^4.6.3"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.12.16",
