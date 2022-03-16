@@ -103,6 +103,21 @@
 			],
 		},
 		{
+			label: "分区",
+			prop: "partition",
+			width: "100%",
+			options: [
+				{
+					label: "青蛙乐园",
+					value: "a",
+				},
+				{
+					label: "牛蛙经验",
+					value: "b",
+				},
+			],
+		},
+		{
 			label: "排序",
 			prop: "sort",
 			width: "100%",

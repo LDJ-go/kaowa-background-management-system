@@ -37,6 +37,8 @@
 		<div class="btn-container">
 			<el-button @click="submitForm">查询</el-button>
 			<el-button @click="resetForm">重置</el-button>
+			<el-button @click="routerToPublish" v-if="needPublishBtn">+发布</el-button>
+			<el-button @click="routerToAdd" v-if="needAdd">+新增</el-button>
 		</div>
 	</div>
 </template>
@@ -44,6 +46,7 @@
 <script setup>
 	import { ref, defineProps, defineEmits } from "vue";
 	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
+	import { useRouter } from "vue-router";
 
 	const props = defineProps({
 		formData: {
@@ -59,6 +62,16 @@
 		selectOptions: {
 			type: Array,
 			default: () => [],
+			required: false,
+		},
+		needPublishBtn: {
+			type: Boolean,
+			default: false,
+			required: false,
+		},
+		needAdd: {
+			type: String,
+			default: "",
 			required: false,
 		},
 	});
@@ -85,14 +98,16 @@
 		accountStatus: [],
 	};
 
-	// 表单数据
-	// let formData = ref({
-	// 	userID: undefined,
-	// 	userName: undefined,
-	// 	account: undefined,
-	// 	lastLoginTime: undefined,
-	// 	accountStatus: undefined,
-	// });
+	// 路由跳转至发布官方文章
+	const router = useRouter();
+	const routerToPublish = function () {
+		router.push("/official-article-list/official-article-publish");
+	};
+
+	// 路由跳转至新增页面（根据props的needAdd参数决定）
+	const routerToAdd = function () {
+		router.push(props.needAdd);
+	};
 
 	// 表单提交与重置
 	const formRef = ref(null);

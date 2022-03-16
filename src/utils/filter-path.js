@@ -11,6 +11,8 @@ export default function (path) {
 			return "官方文章列表";
 		case "OfficialArticleDetail":
 			return "官方文章详情";
+		case "OfficialArticlePublish":
+			return "发布文章";
 		case "UserArticleList":
 			return "用户文章列表";
 		case "UserArticleDetail":

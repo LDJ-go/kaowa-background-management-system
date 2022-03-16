@@ -2,8 +2,17 @@
 	<div>
 		<el-input v-model="title" maxlength="64" placeholder="请输入文章标题" show-word-limit type="text" />
 		<!-- 富文本编辑框 -->
-		<div ref="editor" style="margin-top: 20px"></div>
-		<button @click="syncHTML">同步内容</button>
+		<div ref="editor" style="margin: 10px 0"></div>
+		<el-input
+			v-model="summary"
+			maxlength="120"
+			show-word-limit
+			:autosize="{ minRows: 2, maxRows: 4 }"
+			type="textarea"
+			placeholder="请输入文章摘要（选填，默认为文章正文前25字）"
+			style="margin-bottom: 10px"
+		/>
+		<!-- <button @click="syncHTML">同步内容</button> -->
 	</div>
 </template>
 
@@ -13,6 +22,8 @@
 
 	// 标题
 	const title = ref("");
+	// 摘要
+	const summary = ref("");
 
 	const editor = ref();
 	const content = reactive({
@@ -33,10 +44,12 @@
 		instance.config.uploadImgShowBase64 = true;
 		// 隐藏网络图片，只能上传本地图片
 		instance.config.showLinkImg = false;
+		instance.config.zIndex = 500;
+
 		// 编辑区域 blur（失焦）时触发的回调函数。
-		instance.config.onblur = function (newHtml) {
-			console.log("onblur", newHtml); // 获取最新的 html 内容
-		};
+		// instance.config.onblur = function (newHtml) {
+		// 	console.log("onblur", newHtml); // 获取最新的 html 内容
+		// };
 		// 创建
 		instance.create();
 	});

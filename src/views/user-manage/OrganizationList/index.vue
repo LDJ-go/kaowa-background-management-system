@@ -1,11 +1,7 @@
 <template>
-	<div>
-		<Editor />
-	</div>
+	<div></div>
 </template>
 
-<script setup>
-	import Editor from "@/components/Editor.vue";
-</script>
+<script setup></script>
 
 <style lang="scss"></style>

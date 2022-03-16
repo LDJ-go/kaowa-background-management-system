@@ -9,6 +9,7 @@
 			:selectOptions="selectOptions"
 			:inputOptions="inputOptions"
 			:formData="formData"
+			:needPublishBtn="true"
 			@query-table-data="queryTableData"
 		/>
 		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>

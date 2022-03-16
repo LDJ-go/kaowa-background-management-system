@@ -39,6 +39,33 @@
 						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
 					</div>
 				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-AE'">
+					<div class="operation">
+						<span @click="toggleFix(row)">上线</span>
+						<span @click="toggleFix(row)">下线</span>
+						<span @click="toggleFix(row)">删除</span>
+						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
+					</div>
+				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-TM'">
+					<div class="operation">
+						<span @click="toggleFix(row)">上线</span>
+						<span @click="toggleFix(row)">下线</span>
+						<span @click="toggleFix(row)">编辑</span>
+					</div>
+				</template>
+				<!-- 轮播图管理 -->
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-CM'">
+					<div class="operation">
+						<span @click="toggleFix(row)">删除</span>
+						<span @click="toggleFix(row)">编辑</span>
+					</div>
+				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'carousel'">
+					<div>
+						<img :src="row.carousel" alt="" height="100" />
+					</div>
+				</template>
 			</el-table-column>
 		</el-table>
 	</div>

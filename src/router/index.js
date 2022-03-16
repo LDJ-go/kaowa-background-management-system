@@ -32,6 +32,11 @@ const routes = [
 						name: "OfficialArticleDetail",
 						component: () => import("@/views/content-manage/OfficialArticleDetail"),
 					},
+					{
+						path: "official-article-publish",
+						name: "OfficialArticlePublish",
+						component: () => import("@/views/content-manage/OfficialArticlePublish"),
+					},
 				],
 			},
 			{
