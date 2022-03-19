@@ -33,6 +33,13 @@
 						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
 					</div>
 				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-COM'">
+					<div class="operation">
+						<span @click="toggleFix(row)" v-if="item.commentState == '已启用'">停用</span>
+						<span @click="toggleFix(row)">启动</span>
+						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
+					</div>
+				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
 					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
