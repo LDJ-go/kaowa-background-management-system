@@ -1,4 +1,4 @@
-import MENU_LIST from "@/constant/menu";
+import MENU_LIST from "@/utils/menu";
 
 function getMenuList() {
 	return new Promise((resolve) => {

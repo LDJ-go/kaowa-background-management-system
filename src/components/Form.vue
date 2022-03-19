@@ -70,11 +70,12 @@
 			required: false,
 		},
 		needAdd: {
-			type: String,
-			default: "",
+			type: Boolean,
+			default: false,
 			required: false,
 		},
 	});
+	const emit = defineEmits(["query-table-data", "add-tag"]);
 
 	let formData = ref(props.formData);
 
@@ -104,14 +105,13 @@
 		router.push("/official-article-list/official-article-publish");
 	};
 
-	// 路由跳转至新增页面（根据props的needAdd参数决定）
+	// 路由跳转至新增xxx页面
 	const routerToAdd = function () {
-		router.push(props.needAdd);
+		emit("add-tag");
 	};
 
 	// 表单提交与重置
 	const formRef = ref(null);
-	const emit = defineEmits(["query-table-data"]);
 
 	// 提交按钮
 	const submitForm = function () {

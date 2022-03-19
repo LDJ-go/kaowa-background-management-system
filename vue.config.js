@@ -63,4 +63,21 @@ module.exports = defineConfig({
 			},
 		},
 	},
+	devServer: {
+		https: false,
+		// hotOnly: false,
+		proxy: {
+			"/api": {
+				target: "http://106.52.192.138:8111/",
+				ws: true, //代理websocked
+				changeOrigin: true,
+				pathRewrite: {
+					"^/api": "",
+				},
+			},
+		},
+		headers: {
+			"Access-Contorl-Allow-Origin": "*",
+		},
+	},
 });

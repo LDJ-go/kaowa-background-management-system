@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import app from "./modules/app";
+import user from "./modules/user";
 import getters from "./getters";
 
 export default createStore({
@@ -7,5 +8,5 @@ export default createStore({
 	getters,
 	mutations: {},
 	actions: {},
-	modules: { app: app },
+	modules: { app, user },
 });

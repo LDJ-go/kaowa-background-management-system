@@ -5,7 +5,7 @@ export default [
 		// width: 80,
 	},
 	{
-		prop: "tag",
+		prop: "categoryName",
 		label: "页签",
 	},
 	{
@@ -14,15 +14,15 @@ export default [
 		width: 200,
 	},
 	{
-		prop: "userName",
+		prop: "authorNickName",
 		label: "用户名称",
 	},
 	{
-		prop: "publish_time",
+		prop: "gmtCreate",
 		label: "发布时间",
 	},
 	{
-		prop: "visits",
+		prop: "viewCount",
 		label: "阅读数",
 		width: 70,
 	},
@@ -32,12 +32,12 @@ export default [
 		width: 70,
 	},
 	{
-		prop: "comments",
+		prop: "commentCount",
 		label: "评论数",
 		width: 70,
 	},
 	{
-		prop: "shares",
+		prop: "shareCount",
 		label: "分享数",
 		width: 70,
 	},
@@ -47,7 +47,7 @@ export default [
 		width: 70,
 	},
 	{
-		prop: "state",
+		prop: "isPublish",
 		label: "状态",
 		width: 100,
 	},

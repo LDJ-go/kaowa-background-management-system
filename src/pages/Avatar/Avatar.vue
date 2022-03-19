@@ -21,7 +21,7 @@
 	import { useStore } from "vuex";
 	const store = useStore();
 	const logout = function () {
-		store.dispatch("app/logout");
+		store.dispatch("user/logout");
 	};
 </script>
 <style lang="scss">

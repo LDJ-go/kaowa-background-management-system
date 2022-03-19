@@ -51,7 +51,9 @@
 					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
 						<span @click="toggleFix(row)">下线</span>
-						<span @click="toggleFix(row)">编辑</span>
+						<span @click="editTag(row)">编辑</span>
+						<span @click="toggleFix(row)">上移</span>
+						<span @click="toggleFix(row)">下移</span>
 					</div>
 				</template>
 				<!-- 轮播图管理 -->
@@ -72,7 +74,7 @@
 </template>
 
 <script setup>
-	import { ref, defineProps } from "vue";
+	import { ref, defineProps, defineEmits } from "vue";
 	import { useRouter } from "vue-router";
 
 	// props
@@ -88,6 +90,10 @@
 		},
 		needCheckbox: { default: false },
 	});
+	// emits
+	const emits = defineEmits(["editTag"]);
+	// router
+	const router = useRouter();
 
 	// 表格的请求表单数据
 	const tableForm = ref({
@@ -108,9 +114,13 @@
 	};
 
 	// 路由跳转到文章详情页
-	const router = useRouter();
 	const routerToDetail = function (data, path) {
 		router.push(path);
+	};
+
+	// 页签管理-编辑页签
+	const editTag = function (row) {
+		emits("edit-tag", row);
 	};
 </script>
 

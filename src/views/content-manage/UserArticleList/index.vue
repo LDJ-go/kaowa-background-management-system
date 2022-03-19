@@ -37,6 +37,8 @@
 	import tableHeader from "./table-header";
 	// 引入路由
 	import { useRoute } from "vue-router";
+	// 引入接口
+	import { userArticleApi } from "@/api";
 
 	// 路由信息
 	const route = useRoute();
@@ -156,12 +158,19 @@
 
 	// 表格相关数据
 	let tableData = ref([]);
-	let tableReqParam = ref({});
+	let tableReqParam = ref({
+		pageNum: 1,
+		pageSize: 2,
+	});
 	let total = ref(0);
 
-	// 初始化表格数据
-	function initTableData() {
-		tableData.value = [
+	// 初始化表格数据，分页请求表格数据
+	async function initTableData() {
+		const res = await userArticleApi.getUserPostByPage(tableReqParam.value);
+		console.log(res);
+		tableData.value = res.data.list;
+		total.value = res.data.total;
+		/* [
 			{
 				partition: "青蛙乐园",
 				tag: "考研",
@@ -175,12 +184,7 @@
 				collections: 66,
 				state: "已上线",
 			},
-		];
-		tableReqParam.value = {
-			pageNum: 1,
-			pageSize: 5,
-		};
-		total.value = tableData.value.length;
+		]; */
 	}
 	initTableData();
 

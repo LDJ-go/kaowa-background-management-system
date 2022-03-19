@@ -1,4 +1,6 @@
-import { request } from "../axios";
+// 对应接口category
+
+import request from "../axios";
 
 async function getAllCategory() {
 	return request({
