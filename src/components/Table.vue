@@ -28,7 +28,7 @@
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-OAL'">
 					<div class="operation">
-						<span @click="toggleFix(row)">编辑</span>
+						<span @click="routerToDetail(row, '/official-article-list/official-article-edit')">编辑</span>
 						<span @click="toggleFix(row)">上线</span>
 						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
 					</div>
@@ -124,35 +124,35 @@
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	$bgColor: #d6f2cc;
 
 	.container {
 		background-color: #f6f6f6;
 	}
 
-	.el-table th {
-		color: rgb(70, 69, 69);
-		border: 0.5px solid black;
-	}
+	// .el-table th {
+	// 	color: rgb(70, 69, 69);
+	// 	border: 0.5px solid black;
+	// }
 
-	.el-table td {
-		border: 0.5px solid black;
-		border-top: 0px solid #000;
-	}
+	// .el-table td {
+	// 	border: 0.5px solid black;
+	// 	border-top: 0px solid #000;
+	// }
 
-	// .el-table__empty-block {
-	// 	border-left: 0.5px solid black;
+	// // .el-table__empty-block {
+	// // 	border-left: 0.5px solid black;
+	// // 	border-top: 0.5px solid black;
+	// // }
+	// .el-table__body-wrapper {
 	// 	border-top: 0.5px solid black;
 	// }
-	.el-table__body-wrapper {
-		border-top: 0.5px solid black;
-	}
 
-	.el-table {
-		// color: black;
-		border: 0.5px solid #000;
-	}
+	// .el-table {
+	// 	// color: black;
+	// 	border: 0.5px solid #000;
+	// }
 
 	.el-pagination.is-background .el-pager li:not(.disabled).active {
 		background-color: $bgColor;

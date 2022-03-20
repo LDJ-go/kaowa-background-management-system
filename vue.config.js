@@ -75,6 +75,10 @@ module.exports = defineConfig({
 					"^/api": "",
 				},
 			},
+			"/image": {
+				target: "https://niupic.com/api",
+				pathRewrite: { "^/image": "" },
+			},
 		},
 		headers: {
 			"Access-Contorl-Allow-Origin": "*",

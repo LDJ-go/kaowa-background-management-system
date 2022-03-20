@@ -1,6 +1,12 @@
 <template>
 	<div>
-		<Form @handle-table-data="handleTableData" />
+		<!-- <Form @handle-table-data="handleTableData" /> -->
+		<Form
+			:selectOptions="selectOptions"
+			:inputOptions="inputOptions"
+			:formData="formData"
+			@query-table-data="queryTableData"
+		/>
 
 		<Table :table-header="tableHeader" v-model:table-data="tableData" :needCheckbox="true"></Table>
 
@@ -21,13 +27,79 @@
 </template>
 
 <script setup>
-	import Form from "./form.vue";
+	import Form from "@/components/Form";
 	import { ref, computed } from "vue";
 	import { ElMessage } from "element-plus";
 	import Table from "@/components/Table";
 	import Pagination from "@/components/Pagination.vue";
 	import { options as tableHeader } from "./options.js";
 	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
+
+	// 表单相关数据
+	const inputOptions = [
+		{
+			label: "用户ID",
+			prop: "userID",
+			width: "100%",
+		},
+		{
+			label: "用户名称",
+			prop: "userName",
+			width: "100%",
+		},
+		{ label: "用户账号", prop: "account", width: "100%" },
+	];
+	const selectOptions = [
+		{
+			label: "最近登陆时间",
+			prop: "lastLoginTime",
+			width: "100%",
+			options: [
+				{
+					label: "最近一周",
+					value: "last-week",
+				},
+				{
+					label: "最近一月",
+					value: "last-month",
+				},
+				{
+					label: "最近一年",
+					value: "last-year",
+				},
+			],
+		},
+		{
+			label: "账户状态",
+			prop: "accountStatus",
+			width: "100%",
+			options: [
+				{
+					label: "全部",
+					value: "all",
+				},
+				{
+					label: "正常",
+					value: "normal",
+				},
+				{
+					label: "冻结",
+					value: "freeze",
+				},
+			],
+		},
+	];
+	let formData = ref({
+		account: "",
+		accountStatus: "",
+		lastLoginTime: "",
+		userName: "",
+		userID: "",
+	});
+	// 表单请求方法
+	let queryTableData = function (param) {
+		console.log(param);
+	};
 
 	// 表格的请求参数
 	const tableReqParam = ref({
@@ -116,31 +188,31 @@
 	};
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	$bgColor: #d6f2cc;
 
 	.container {
 		background-color: #f6f6f6;
 	}
 
-	.el-table th {
-		color: rgb(70, 69, 69);
-		border: 0.5px solid black;
-	}
+	// .el-table th {
+	// 	color: rgb(70, 69, 69);
+	// 	border: 0.5px solid black;
+	// }
 
-	.el-table td {
-		border: 0.5px solid black;
-	}
+	// .el-table td {
+	// 	border: 0.5px solid black;
+	// }
 
-	.el-table__empty-block {
-		border-left: 0.5px solid black;
-		border-top: 0.5px solid black;
-	}
+	// .el-table__empty-block {
+	// 	border-left: 0.5px solid black;
+	// 	border-top: 0.5px solid black;
+	// }
 
-	.el-table {
-		// color: black;
-		border: 0.5px solid #000;
-	}
+	// .el-table {
+	// 	// color: black;
+	// 	border: 0.5px solid #000;
+	// }
 
 	.el-button:focus,
 	.el-button:hover {
