@@ -59,13 +59,13 @@
 				<!-- 轮播图管理 -->
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-CM'">
 					<div class="operation">
-						<span @click="toggleFix(row)">删除</span>
-						<span @click="toggleFix(row)">编辑</span>
+						<span @click="deleteCarousel(row)">删除</span>
+						<span @click="editCarousel(row)">编辑</span>
 					</div>
 				</template>
-				<template v-slot="{ row }" v-else-if="item.prop === 'carousel'">
+				<template v-slot="{ row }" v-else-if="item.prop === 'imageUrl'">
 					<div>
-						<img :src="row.carousel" alt="" height="100" />
+						<img :src="row.imageUrl" alt="" height="100" />
 					</div>
 				</template>
 			</el-table-column>
@@ -76,6 +76,8 @@
 <script setup>
 	import { ref, defineProps, defineEmits } from "vue";
 	import { useRouter } from "vue-router";
+	// 引入接口
+	import { carouselApi } from "@/api"; // 轮播图
 
 	// props
 	const props = defineProps({
@@ -91,7 +93,7 @@
 		needCheckbox: { default: false },
 	});
 	// emits
-	const emits = defineEmits(["editTag"]);
+	const emits = defineEmits(["edit-tag", "delete-carousel"]);
 	// router
 	const router = useRouter();
 
@@ -122,37 +124,50 @@
 	const editTag = function (row) {
 		emits("edit-tag", row);
 	};
+
+	// 轮播图管理
+	const editCarousel = function (row) {
+		router.push({
+			name: "CarouselEdit",
+			params: {
+				carousel: JSON.stringify(row),
+			},
+		});
+	};
+	const deleteCarousel = function ({ id }) {
+		emits("delete-carousel", id);
+	};
 </script>
 
 <style lang="scss" scoped>
 	$bgColor: #d6f2cc;
+	$tableBorderColor: #b9bbbe;
 
 	.container {
 		background-color: #f6f6f6;
 	}
 
-	// .el-table th {
-	// 	color: rgb(70, 69, 69);
-	// 	border: 0.5px solid black;
-	// }
+	::v-deep .el-table tr th {
+		color: rgb(70, 69, 69);
+		border: 0.5px solid $tableBorderColor;
+	}
 
-	// .el-table td {
-	// 	border: 0.5px solid black;
-	// 	border-top: 0px solid #000;
-	// }
+	::v-deep .el-table td {
+		border: 0.5px solid $tableBorderColor;
+	}
 
-	// // .el-table__empty-block {
-	// // 	border-left: 0.5px solid black;
-	// // 	border-top: 0.5px solid black;
-	// // }
-	// .el-table__body-wrapper {
+	// .el-table__empty-block {
+	// 	border-left: 0.5px solid black;
 	// 	border-top: 0.5px solid black;
 	// }
+	::v-deep .el-table__body-wrapper {
+		border-top: 0.5px solid black;
+	}
 
-	// .el-table {
-	// 	// color: black;
-	// 	border: 0.5px solid #000;
-	// }
+	.el-table {
+		// color: black;
+		border: 0.5px solid #000;
+	}
 
 	.el-pagination.is-background .el-pager li:not(.disabled).active {
 		background-color: $bgColor;

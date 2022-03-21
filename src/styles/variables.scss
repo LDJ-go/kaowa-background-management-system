@@ -15,6 +15,9 @@ $sideBarWidth: 210px;
 $hideSideBarWidth: 67px;
 $sideBarDuration: 0.28s;
 
+// 按钮、表头背景颜色
+$bgColor: #d6f2cc;
+
 :export {
 	menuText: $menuText;
 	menuActiveText: $menuActiveText;
@@ -26,4 +29,5 @@ $sideBarDuration: 0.28s;
 	subMenuHover: $subMenuHover;
 	sideBarWidth: $sideBarWidth;
 	hideSideBarWidth: $hideSideBarWidth;
+	bgColor: $bgColor;
 }

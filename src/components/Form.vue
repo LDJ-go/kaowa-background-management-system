@@ -75,7 +75,7 @@
 			required: false,
 		},
 	});
-	const emit = defineEmits(["query-table-data", "add-tag"]);
+	const emit = defineEmits(["query-table-data", "add-tag", "add-carousel"]);
 
 	let formData = ref(props.formData);
 
@@ -108,43 +108,52 @@
 	// 路由跳转至新增xxx页面
 	const routerToAdd = function () {
 		emit("add-tag");
+		emit("add-carousel");
 	};
 
 	// 表单提交与重置
 	const formRef = ref(null);
 
 	// 提交按钮
-	const submitForm = function () {
+	const submitForm = function (event) {
 		formRef.value.validate((valid) => {
 			if (valid) {
 				// TODO 发送请求
 				// 传递数据
-				emit("query-table-data", ["data"]);
+				emit("query-table-data", formData.value);
 			} else {
 				console.log("error submit!");
 			}
 		});
+		// 取消按钮的focus状态
+		cancelELButtonFocus(event);
 	};
 	// 重置按钮
-	const resetForm = function () {
+	const resetForm = function (event) {
 		formRef.value.resetFields();
+		// 取消按钮的focus状态
+		cancelELButtonFocus(event);
 	};
 </script>
 
-<style>
+<style lang="scss" scoped>
 	.form-container {
 		padding: 20px 0 0 0;
 		margin-bottom: 20px;
 		background-color: #dedddd;
 	}
 
-	.elCol {
-		/* margin-left: -16px; */
-	}
-
 	.btn-container {
 		display: flex;
 		justify-content: center;
 		padding-bottom: 10px;
+	}
+
+	.el-button:focus,
+	.el-button:hover {
+		color: $bgColor;
+		border-color: $bgColor;
+		background-color: $bgColor;
+		color: #000;
 	}
 </style>

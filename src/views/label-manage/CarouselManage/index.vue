@@ -11,12 +11,13 @@
 			:formData="formData"
 			needAdd="/carousel-manage/add-carousel"
 			@query-table-data="queryTableData"
+			@add-carousel="addCarousel"
 		/>
-		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
+		<Table :table-header="tableHeader" v-model:table-data="tableData" @delete-carousel="deleteCarousel"></Table>
 		<div class="footer">
 			<Pagination
-				:pageNum="tableReqParam.pageNum"
-				:pageSize="tableReqParam.pageSize"
+				:pageNum="tableReqParams.pageNum"
+				:pageSize="tableReqParams.pageSize"
 				:total="total"
 				@handle-size-change="handleSizeChange"
 				@handle-current-page-change="handleCurrentPageChange"
@@ -26,7 +27,7 @@
 </template>
 
 <script setup>
-	import { ref } from "vue";
+	import { ref, watch } from "vue";
 	// 引入表单组件
 	import Form from "@/components/Form";
 	// 引入表格组件
@@ -36,71 +37,121 @@
 	// 引入表头行数据
 	import tableHeader from "./table-header";
 	// 引入路由
-	import { useRoute } from "vue-router";
+	import { useRouter, useRoute } from "vue-router";
+	// 引入接口
+	import { carouselApi } from "@/api";
+	// 消息弹出框
+	import { ElMessageBox, ElMessage } from "element-plus";
 
 	// 路由信息
 	const route = useRoute();
+	// 路由操作
+	const router = useRouter();
 
-	// 表单相关数据
+	watch(
+		() => {
+			return route.params.refresh;
+		},
+		() => {
+			// 通过路由参数判断是否需要刷新页面
+			if (route.params.refresh) {
+				initTableData();
+			}
+		}
+	);
+
+	// 表单下拉框数据
 	const selectOptions = [
 		{
 			label: "所属分区",
-			prop: "partition",
+			prop: "kind",
 			width: "100%",
 			options: [
 				{
 					label: "青蛙乐园",
-					value: "a",
+					value: "青蛙乐园",
 				},
 				{
 					label: "牛蛙经验",
-					value: "b",
+					value: "牛蛙经验",
 				},
 				{
 					label: "蝌学备考",
-					value: "c",
+					value: "蝌学备考",
 				},
 			],
 		},
 	];
+	// 表单数据
 	let formData = ref({
-		partition: "",
+		kind: "",
 	});
+	// 表格请求数据
+	let tableReqParams = ref({
+		kind: "", // 空字符串即全部
+		pageNum: 1,
+		pageSize: 2,
+	});
+	let total = ref(0);
+	// 表格数据
+	let tableData = ref([]);
+
 	// 表单请求方法
-	let queryTableData = function (param) {
-		console.log(param);
+	let queryTableData = function ({ kind }) {
+		tableReqParams.value.kind = kind;
+		initTableData();
 	};
 
-	let tableData = ref([]);
-	let tableReqParam = ref({});
-	let total = ref(0);
+	// 新增
+	const addCarousel = function () {
+		router.push({
+			name: "CarouselEdit",
+		});
+	};
+
+	// 删除
+	const deleteCarousel = function (id) {
+		ElMessageBox.confirm("确认删除？", "提醒", {
+			confirmButtonText: "确认",
+			cancelButtonText: "取消",
+			type: "warning",
+		})
+			.then(async () => {
+				await carouselApi.deleteCarousel(id);
+				initTableData();
+				ElMessage({
+					type: "success",
+					message: "删除成功",
+				});
+			})
+			.catch(() => {
+				ElMessage({
+					type: "info",
+					message: "取消",
+				});
+			});
+		// const res = await
+	};
 
 	// 初始化表格数据
-	function initTableData() {
-		tableData.value = [
-			{
-				carousel: "https://p3.itc.cn/q_70/images03/20210424/18331e57af2743db9d8245a884218ef8.jpeg",
-				partition: "青蛙乐园",
-				linkAddress: "www.baidu.com",
-			},
-		];
-		tableReqParam.value = {
-			pageNum: 1,
-			pageSize: 5,
-		};
-		total.value = tableData.value.length;
+	async function initTableData() {
+		const res = await carouselApi.getCarousel({
+			params: tableReqParams.value,
+		});
+		total.value = res.data.total;
+		tableData.value = res.data.list;
 	}
 	initTableData();
 
-	// 根据表单查询表格数据
-	function queryData() {}
-
 	function handleSizeChange(pageSize) {
-		console.log("asd");
+		tableReqParams.value.pageNum = 1;
+		tableReqParams.value.pageSize = pageSize;
+		initTableData();
 	}
 
 	function handleCurrentPageChange(pageNum) {
-		console.log("zxc");
+		tableReqParams.value.pageNum = pageNum;
+		initTableData();
 	}
 </script>
 

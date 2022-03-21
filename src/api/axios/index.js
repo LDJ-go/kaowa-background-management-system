@@ -4,6 +4,7 @@ import { httpErrorStatusHandle } from "./error.js";
 import BASE_URL from "./baseURL";
 import { ElLoading, ElMessage } from "element-plus";
 import { getToken, diffTokenTime } from "@/utils/auth";
+import { parseData } from "@/utils/json";
 import store from "@/store";
 
 const LoadingInstance = {
@@ -11,17 +12,27 @@ const LoadingInstance = {
 	_count: 0,
 };
 
+function arrBufToStr(buffer) {
+	let encodedString = String.fromCodePoint.apply(null, new Uint8Array(buffer));
+	let decodedString = decodeURIComponent(escape(encodedString)); //没有这一步中文会乱码
+	return decodedString;
+}
+
 function myAxios(axiosConfig, customOptions, loadingOptions) {
 	const service = axios.create({
 		baseURL: BASE_URL, // 设置统一的请求前缀
-		timeout: 10000, // 设置统一的超时时长
+		timeout: 5000, // 设置统一的超时时长
+		responseType: "arraybuffer",
+		transformResponse: (data) => {
+			return parseData(arrBufToStr(data)); // arraybuffer -> string
+		},
 	});
 
 	// 自定义配置
 	let custom_options = Object.assign(
 		{
 			repeat_request_cancel: true, // 是否开启取消重复请求, 默认为 true
-			loading: false, // 是否开启loading层效果, 默认为false
+			loading: true, // 是否开启loading层效果, 默认为false
 			error_message_show: true, // 是否开启接口错误信息展示，默认为true
 			reduct_data_format: true, // 是否开启简洁的数据结构响应, 默认为true
 			code_message_show: false, // 是否开启code不为0时（后端返回信息）的信息提示, 默认为false
@@ -48,7 +59,9 @@ function myAxios(axiosConfig, customOptions, loadingOptions) {
 					return Promise.reject(new Error("token 失效了"));
 				}
 			}
-			config.headers.Authorization = getToken();
+			// config.headers.Authorization = getToken();
+			config.headers.Authorization =
+				"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkMWYwNTM5NzU1OTMwMmFkYTc2YjU4YjZiMTdlMDNkYSIsImNyZWF0ZWQiOjE2NDc3NDAwNzk0MTQsImV4cCI6MTY0ODM0NDg3OX0.sGCJ0byelw5RQex0TEyz0SadYlbEU84n5v3S655xzD_LEB9p_IRkGoR9_cu9L64YxVIebq7a1Y3LgOkSsIqaBQ";
 
 			return config;
 		},

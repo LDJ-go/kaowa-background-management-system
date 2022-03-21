@@ -13,6 +13,11 @@ const routes = [
 		redirect: "/user-list",
 		children: [
 			{
+				path: "refresh",
+				name: "Refresh",
+				component: () => import("@/views/Refresh"),
+			},
+			{
 				path: "user-list",
 				name: "UserList",
 				component: () => import("@/views/user-manage/UserList"),
@@ -80,6 +85,15 @@ const routes = [
 				path: "carousel-manage",
 				name: "CarouselManage",
 				component: () => import("@/views/label-manage/CarouselManage"),
+				props: true,
+				children: [
+					{
+						path: "carousel-edit",
+						name: "CarouselEdit",
+						component: () => import("@/views/label-manage/CarouselEdit"),
+						props: true,
+					},
+				],
 			},
 			{
 				path: "auto-recommend",

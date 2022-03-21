@@ -14,7 +14,7 @@
 		<div class="card thumbnail-card" v-show="isThumbnailVisible">
 			<img src="" alt="缩略图" id="thumbnail" />
 
-			<label class="success-label" v-show="isSuccessLabelVisible">
+			<!-- <label class="success-label" v-show="isSuccessLabelVisible">
 				<i class="success-icon">
 					<svg class="icon" width="12" height="12" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -23,7 +23,7 @@
 						></path>
 					</svg>
 				</i>
-			</label>
+			</label> -->
 
 			<!-- 图标 -->
 			<div class="thumbnail-actions">
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-	import { ref, computed } from "vue";
+	import { ref, computed, onMounted } from "vue";
 	import { imgApi } from "@/api";
 	// import { Plus } from "@element-plus/icons-vue";
 	import VueEasyLightbox from "vue-easy-lightbox";
@@ -70,7 +70,8 @@
 	export default {
 		name: "KilaKilaUploader",
 		// emits: ["handle-cover-img-url", "aboutToUpload", "remove-cover-img-url"],
-		emits: ["handle-cover-img-url", "remove-cover-img-url"],
+		emits: ["handle-img-url", "remove-img-url"],
+		props: ["carouselUrl"],
 		components: { VueEasyLightbox },
 		setup(props, context) {
 			// 进度条
@@ -114,7 +115,7 @@
 			function handleThumbnailRemove() {
 				imageUrl.value = "";
 				localImageUrl.value = "";
-				context.emit("remove-cover-img-url", "");
+				context.emit("remove-img-url", "");
 			}
 
 			// 预览
@@ -137,7 +138,7 @@
 						progress.value = 100;
 						imageUrl.value = url;
 						document.getElementById("thumbnail").src = url;
-						context.emit("handle-cover-img-url", url);
+						context.emit("handle-img-url", url);
 
 						setTimeout(() => {
 							isProgressVisible.value = false;
@@ -147,11 +148,18 @@
 					() => {
 						isProgressVisible.value = false;
 						localImageUrl.value = "";
-						context.emit("handle-cover-img-url", "");
+						context.emit("handle-img-url", "");
 						ElMessage.error("哎呀，图片上传出错啦~");
 					}
 				);
 			}
+
+			onMounted(() => {
+				// 初始化时如果有URL地址就展示图片
+				if (props.carouselUrl) {
+					setImageUrl(props.carouselUrl);
+				}
+			});
 
 			return {
 				progress,

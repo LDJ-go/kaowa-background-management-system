@@ -48,9 +48,7 @@
 	}
 </script>
 
-<style lang="scss" scoped>
-	$bgColor: #d6f2cc;
-
+<style lang="scss">
 	.el-pagination.is-background .el-pager li:not(.disabled).active {
 		background-color: $bgColor;
 		color: gray;

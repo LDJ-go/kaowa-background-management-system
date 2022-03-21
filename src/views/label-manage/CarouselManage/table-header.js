@@ -1,14 +1,14 @@
 export default [
 	{
-		prop: "carousel",
+		prop: "imageUrl",
 		label: "轮播图",
 	},
 	{
-		prop: "partition",
+		prop: "kind",
 		label: "分区名称",
 	},
 	{
-		prop: "linkAddress",
+		prop: "skipUrl",
 		label: "跳转地址",
 	},
 	{

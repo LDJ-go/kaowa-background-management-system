@@ -189,30 +189,9 @@
 </script>
 
 <style lang="scss" scoped>
-	$bgColor: #d6f2cc;
-
 	.container {
 		background-color: #f6f6f6;
 	}
-
-	// .el-table th {
-	// 	color: rgb(70, 69, 69);
-	// 	border: 0.5px solid black;
-	// }
-
-	// .el-table td {
-	// 	border: 0.5px solid black;
-	// }
-
-	// .el-table__empty-block {
-	// 	border-left: 0.5px solid black;
-	// 	border-top: 0.5px solid black;
-	// }
-
-	// .el-table {
-	// 	// color: black;
-	// 	border: 0.5px solid #000;
-	// }
 
 	.el-button:focus,
 	.el-button:hover {

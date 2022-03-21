@@ -29,6 +29,8 @@ export default function (path) {
 			return "分区管理";
 		case "CarouselManage":
 			return "轮播图管理";
+		case "CarouselEdit":
+			return "编辑轮播图";
 		case "AutoRecommend":
 			return "自动推荐";
 		case "ManualRecommend":

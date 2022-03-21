@@ -9,6 +9,13 @@ async function getAllCategory() {
 	});
 }
 
+// async function moveCategory() {
+// 	return request({
+// 		url: "/portal/category/listAll",
+// 		type: "GET",
+// 	});
+// }
+
 export default {
 	getAllCategory,
 };

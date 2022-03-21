@@ -1,15 +1,14 @@
 export default [
 	{
-		prop: "partition",
+		prop: "zone",
 		label: "分区",
-		// width: 80,
 	},
 	{
 		prop: "categoryName",
 		label: "页签",
 	},
 	{
-		prop: "articleTitle",
+		prop: "title",
 		label: "文章标题",
 		width: 200,
 	},
@@ -27,7 +26,7 @@ export default [
 		width: 70,
 	},
 	{
-		prop: "quotes",
+		prop: "usedCount",
 		label: "复用数",
 		width: 70,
 	},
@@ -42,12 +41,12 @@ export default [
 		width: 70,
 	},
 	{
-		prop: "collections",
+		prop: "favCount",
 		label: "收藏数",
 		width: 70,
 	},
 	{
-		prop: "isPublish",
+		prop: "status",
 		label: "状态",
 		width: 100,
 	},

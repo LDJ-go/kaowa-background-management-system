@@ -15,8 +15,8 @@
 		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
 		<div class="footer">
 			<Pagination
-				:pageNum="tableReqParam.pageNum"
-				:pageSize="tableReqParam.pageSize"
+				:pageNum="paginationParams.pageNum"
+				:pageSize="paginationParams.pageSize"
 				:total="total"
 				@handle-size-change="handleSizeChange"
 				@handle-current-page-change="handleCurrentPageChange"
@@ -47,12 +47,12 @@
 	const inputOptions = [
 		{
 			label: "文章标题",
-			prop: "articleTitle",
+			prop: "title",
 			width: "100%",
 		},
 		{
 			label: "发布时间",
-			prop: "publishTime",
+			prop: "date",
 			width: "100%",
 		},
 		{
@@ -64,7 +64,7 @@
 	const selectOptions = [
 		{
 			label: "文章状态",
-			prop: "articleState",
+			prop: "status",
 			width: "100%",
 			options: [
 				{
@@ -83,7 +83,7 @@
 		},
 		{
 			label: "页签",
-			prop: "tag",
+			prop: "category",
 			width: "100%",
 			options: [
 				{
@@ -106,7 +106,7 @@
 		},
 		{
 			label: "分区",
-			prop: "partition",
+			prop: "zone",
 			width: "100%",
 			options: [
 				{
@@ -121,7 +121,7 @@
 		},
 		{
 			label: "排序",
-			prop: "sort",
+			prop: "orderType",
 			width: "100%",
 			options: [
 				{
@@ -144,56 +144,66 @@
 		},
 	];
 	let formData = ref({
-		articleTitle: "",
-		publishTime: "",
-		userName: "",
-		articleState: "",
-		tag: "",
-		sort: "",
+		title: "", // 文章标题
+		date: "", // 发布时间
+		status: "", // 账号状态
+		category: "", // 页签
+		orderType: "", // 排序
+		userName: "", // 用户名
+		zone: "", // 分区
+	});
+	let paginationParams = ref({
+		pageNum: 1,
+		pageSize: 2,
 	});
 	// 表单请求方法
-	let queryTableData = function (param) {
-		console.log(param);
+	let queryTableData = async function () {
+		const res = await userArticleApi.searchUserPost(paginationParams.value, formData.value);
+		tableData.value = res.data.list;
+		filter();
+		total.value = res.data.total;
 	};
 
 	// 表格相关数据
 	let tableData = ref([]);
-	let tableReqParam = ref({
-		pageNum: 1,
-		pageSize: 2,
-	});
 	let total = ref(0);
 
 	// 初始化表格数据，分页请求表格数据
 	async function initTableData() {
-		const res = await userArticleApi.getUserPostByPage(tableReqParam.value);
-		console.log(res);
+		const res = await userArticleApi.getUserPostByPage(paginationParams.value);
 		tableData.value = res.data.list;
+		filter();
 		total.value = res.data.total;
-		/* [
-			{
-				partition: "青蛙乐园",
-				tag: "考研",
-				articleTitle: "张三丰的高数小技巧",
-				userName: "张三丰",
-				publish_time: "2022.03.06",
-				visits: 123,
-				quotes: 16,
-				comments: 256,
-				shares: 88,
-				collections: 66,
-				state: "已上线",
-			},
-		]; */
 	}
 	initTableData();
 
 	// 分页器
 	function handleSizeChange(pageSize) {
-		console.log("asd");
+		paginationParams.value.pageNum = 1;
+		paginationParams.value.pageSize = pageSize;
+		queryTableData();
 	}
 	function handleCurrentPageChange(pageNum) {
-		console.log("zxc");
+		paginationParams.value.pageNum = pageNum;
+		queryTableData();
+	}
+
+	// 过滤函数-将接口返回的数字类型数据转成中文
+	function filter() {
+		tableData.value.map(function (value) {
+			if (value.status == 0) {
+				value.status = "下线";
+			} else if (value.status == 1) {
+				value.status = "上线";
+			} else if (value.status == 2) {
+				value.status = "草稿";
+			}
+			if (value.zone == 0) {
+				value.zone = "青蛙乐园";
+			} else if (value.zone == 1) {
+				value.zone = "牛蛙经验";
+			}
+		});
 	}
 </script>
 

@@ -35,7 +35,7 @@
 	</div>
 
 	<div class="btn-container">
-		<el-button @click="save">保存为草稿</el-button>
+		<el-button @click="save">更改</el-button>
 		<el-button @click="reset">重置</el-button>
 		<el-button @click="publish">发布</el-button>
 	</div>
