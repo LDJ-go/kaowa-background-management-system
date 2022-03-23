@@ -1,43 +1,44 @@
 export default [
 	{
-		prop: "tag",
+		prop: "categoryName",
 		label: "页签",
+		width: 60,
 	},
 	{
-		prop: "articleTitle",
+		prop: "title",
 		label: "文章标题",
 	},
 	{
-		prop: "publish_time",
+		prop: "startTime",
 		label: "发布时间",
 	},
 	{
-		prop: "visits",
+		prop: "viewCount",
 		label: "阅读数",
 	},
 	{
-		prop: "thumbs",
+		prop: "likeCount",
 		label: "点赞数",
 	},
 	{
-		prop: "comments",
+		prop: "commentCount",
 		label: "评论数",
 	},
 	{
-		prop: "shares",
+		prop: "shareCount",
 		label: "分享数",
 	},
 	{
-		prop: "collections",
+		prop: "favCount",
 		label: "收藏数",
 	},
 	{
-		prop: "state",
+		prop: "status",
 		label: "状态",
 	},
 	{
 		prop: "operation-OAL",
 		label: "操作",
-		width: 150,
+		width: 180,
 	},
 ];

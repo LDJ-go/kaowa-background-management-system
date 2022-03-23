@@ -29,13 +29,20 @@
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-OAL'">
 					<div class="operation">
 						<span @click="routerToDetail(row, '/official-article-list/official-article-edit')">编辑</span>
-						<span @click="toggleFix(row)">上线</span>
+						<span @click="toggleFix(row)">
+							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
+							{{ row.status == "上线" ? "下线" : "" }}
+						</span>
+						<span @click="toggleFix(row)">删除</span>
 						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
 					<div class="operation">
-						<span @click="toggleFix(row)">上线</span>
+						<span @click="toggleFix(row)">
+							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
+							{{ row.status == "上线" ? "下线" : "" }}
+						</span>
 						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
 					</div>
 				</template>

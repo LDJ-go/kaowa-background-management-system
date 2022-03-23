@@ -9,7 +9,16 @@ async function getOfficialArticle(params) {
 		params,
 	});
 }
+async function searchOfficialArticle(params, data) {
+	return request({
+		url: "/portal/exampost/manage/search",
+		method: "POST",
+		params,
+		data,
+	});
+}
 
 export default {
 	getOfficialArticle,
+	searchOfficialArticle,
 };

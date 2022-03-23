@@ -15,8 +15,8 @@
 		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
 		<div class="footer">
 			<Pagination
-				:pageNum="tableReqParam.pageNum"
-				:pageSize="tableReqParam.pageSize"
+				v-model:pageNum="paginationParams.pageNum"
+				v-model:pageSize="paginationParams.pageSize"
 				:total="total"
 				@handle-size-change="handleSizeChange"
 				@handle-current-page-change="handleCurrentPageChange"
@@ -37,6 +37,7 @@
 	import tableHeader from "./table-header";
 	// 引入路由
 	import { useRoute } from "vue-router";
+	import { officialArticleApi } from "@/api";
 
 	// 路由信息
 	const route = useRoute();
@@ -62,19 +63,15 @@
 			options: [
 				{
 					label: "已上线",
-					value: "online",
+					value: "1",
 				},
 				{
 					label: "已下线",
-					value: "offline",
+					value: "0",
 				},
 				{
 					label: "草稿",
-					value: "draft",
-				},
-				{
-					label: "全部",
-					value: "all",
+					value: "2",
 				},
 			],
 		},
@@ -126,53 +123,58 @@
 		},
 	];
 	let formData = ref({
-		articleTitle: "",
-		publishTime: "",
-		articleState: "",
-		tag: "",
-		sort: "",
+		title: "", // 文章标题
+		date: "", // 发布时间
+		status: "", // 账号状态
+		category: "", // 页签
+		orderType: "", // 排序
+	});
+	let paginationParams = ref({
+		pageNum: 1,
+		pageSize: 5,
 	});
 	// 表单请求方法
-	let queryTableData = function (param) {
-		console.log(param);
+	let queryTableData = async function () {
+		const res = await officialArticleApi.searchOfficialArticle(paginationParams.value, formData.value);
+		tableData.value = res.data.list;
+		filter();
+		total.value = res.data.total;
 	};
 
 	let tableData = ref([]);
-	let tableReqParam = ref({});
 	let total = ref(0);
 
-	// 初始化表格数据
-	function initTableData() {
-		tableData.value = [
-			{
-				tag: "考研",
-				articleTitle: "考研必看宝典",
-				publish_time: "2022.03.13",
-				visits: 123,
-				comments: 256,
-				thumbs: 200,
-				shares: 88,
-				collections: 66,
-				state: "已上线",
-			},
-		];
-		tableReqParam.value = {
-			pageNum: 1,
-			pageSize: 5,
-		};
-		total.value = tableData.value.length;
+	// 初始化表格数据，分页请求表格数据
+	async function initTableData() {
+		const res = await officialArticleApi.getOfficialArticle(paginationParams.value);
+		tableData.value = res.data.list;
+		filter();
+		total.value = res.data.total;
 	}
 	initTableData();
 
-	// 根据表单查询表格数据
-	function queryData() {}
-
+	// 分页器
 	function handleSizeChange(pageSize) {
-		console.log("asd");
+		// paginationParams.value.pageNum = 1;
+		paginationParams.value.pageSize = pageSize;
+		queryTableData();
+	}
+	function handleCurrentPageChange(pageNum) {
+		paginationParams.value.pageNum = pageNum;
+		queryTableData();
 	}
 
-	function handleCurrentPageChange(pageNum) {
-		console.log("zxc");
+	// 过滤函数-将接口返回的数字类型数据转成中文
+	function filter() {
+		tableData.value.map(function (value) {
+			if (value.status == 0) {
+				value.status = "下线";
+			} else if (value.status == 1) {
+				value.status = "上线";
+			} else if (value.status == 2) {
+				value.status = "草稿";
+			}
+		});
 	}
 </script>
 

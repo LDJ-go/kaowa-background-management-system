@@ -69,15 +69,15 @@
 			options: [
 				{
 					label: "已上线",
-					value: "online",
+					value: "1",
 				},
 				{
 					label: "已下线",
-					value: "offline",
+					value: "0",
 				},
 				{
-					label: "全部",
-					value: "all",
+					label: "草稿",
+					value: "2",
 				},
 			],
 		},
@@ -111,11 +111,11 @@
 			options: [
 				{
 					label: "青蛙乐园",
-					value: "a",
+					value: "0",
 				},
 				{
 					label: "牛蛙经验",
-					value: "b",
+					value: "1",
 				},
 			],
 		},
@@ -125,20 +125,20 @@
 			width: "100%",
 			options: [
 				{
-					label: "从按照阅读数从高到低",
-					value: "a",
+					label: "按照阅读数从高到低",
+					value: "0",
 				},
 				{
-					label: "从按照从按照阅读数从低到高",
-					value: "b",
+					label: "按照阅读数从低到高",
+					value: "1",
 				},
 				{
-					label: "从按照发布时间从近至远",
-					value: "c",
+					label: "按照发布时间从近至远",
+					value: "2",
 				},
 				{
-					label: "从按照发布时间从远至今",
-					value: "d",
+					label: "按照发布时间从远至近",
+					value: "3",
 				},
 			],
 		},
@@ -154,7 +154,7 @@
 	});
 	let paginationParams = ref({
 		pageNum: 1,
-		pageSize: 2,
+		pageSize: 5,
 	});
 	// 表单请求方法
 	let queryTableData = async function () {
@@ -179,7 +179,7 @@
 
 	// 分页器
 	function handleSizeChange(pageSize) {
-		paginationParams.value.pageNum = 1;
+		// paginationParams.value.pageNum = 1;
 		paginationParams.value.pageSize = pageSize;
 		queryTableData();
 	}

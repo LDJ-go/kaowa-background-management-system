@@ -15,10 +15,21 @@
 	/>
 
 	<div class="flex">
-		<Upload />
+		<Upload @handle-cover-img-url="handleCoverImgUrl" @remove-cover-img-url="removeCoverImgUrl" />
 		<div class="elInput-container">
 			<span>参考链接：</span>
-			<el-input v-model="link" placeholder="请输入参考链接" />
+
+			<el-input
+				v-for="(item, index) in linkList"
+				:key="index"
+				v-model="linkList[index].link"
+				placeholder="请输入参考链接"
+				class="input-link"
+			/>
+			<div class="btn-container">
+				<el-button plain class="add-link-btn" size="large" :icon="Plus" @click="addLink"></el-button>
+				<el-button plain class="add-link-btn" size="large" :icon="Minus" @click="removeLink"></el-button>
+			</div>
 		</div>
 		<div class="elInput-container">
 			<span>话题标签：</span>
@@ -45,6 +56,7 @@
 	import Editor from "@/components/Editor.vue";
 	import Upload from "@/components/Upload.vue";
 	import { ElMessage } from "element-plus";
+	import { Plus, Minus } from "@element-plus/icons-vue";
 	import { ref } from "vue";
 
 	// 标题
@@ -53,9 +65,34 @@
 	const editorHtml = ref("");
 	// 摘要
 	const summary = ref("");
+	// 封面图
+	const coverUrl = ref("");
+
+	// 参考链接
+	const linkList = ref([{ link: "" }]);
+	const addLink = function () {
+		linkList.value.push({ link: "" });
+	};
+	const removeLink = function () {
+		if (linkList.value.length > 1) linkList.value.pop();
+	};
 
 	//发布区域
 	const region = ref("");
+
+	// 接收封面图
+	const handleCoverImgUrl = function (url) {
+		coverUrl.value = url;
+	};
+	// 删除封面图
+	const removeCoverImgUrl = function (url) {
+		coverUrl.value = url;
+	};
+
+	// 保存为草稿
+	const save = function () {
+		console.log(linkList.value);
+	};
 
 	// 重置
 	const reset = function () {
@@ -82,6 +119,17 @@
 			display: flex;
 			flex-direction: column;
 			margin-left: 20px;
+
+			.add-link-btn {
+				height: 20px;
+				// margin-top: 5px;
+				span {
+					margin: 0;
+				}
+			}
+			.input-link {
+				margin-bottom: 5px;
+			}
 		}
 		span {
 			font-size: 15px;

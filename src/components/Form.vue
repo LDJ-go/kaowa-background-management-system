@@ -7,7 +7,7 @@
 					<el-form-item :label="item.label" :prop="item.prop">
 						<el-input
 							v-model="formData[item.prop]"
-							:placeholder="`请输入${item.label}`"
+							:placeholder="`请输入${item.prop != 'date' ? item.label : 'YYYY(-MM(-DD))格式'}`"
 							clearable
 							:style="{ width: item.width }"
 						></el-input>
