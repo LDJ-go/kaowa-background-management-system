@@ -2,11 +2,7 @@
 	<el-row>
 		<el-col :span="2">轮播图</el-col>
 		<el-col :span="5">
-			<Upload
-				@handle-img-url="handleCarouselUrl"
-				@remove-img-url="removeCarouselUrl"
-				:carouselUrl="carouselUrl"
-			/>
+			<Upload @handle-img-url="handleCarouselUrl" @remove-img-url="removeCarouselUrl" :imgUrl="carouselUrl" />
 		</el-col>
 	</el-row>
 	<el-row>
@@ -37,13 +33,13 @@
 
 	// 路由信息
 	const route = useRoute();
-	const routerParams = route.params.carousel ? JSON.parse(route.params.carousel) : "";
+	const carouselInfo = route.params.carousel ? JSON.parse(route.params.carousel) : "";
 
 	// 路由操作
 	const router = useRouter();
 
 	// 轮播图
-	const carouselUrl = routerParams ? routerParams.imageUrl : ref("");
+	const carouselUrl = carouselInfo ? ref(carouselInfo.imageUrl) : ref("");
 	// 接收轮播图
 	const handleCarouselUrl = function (url) {
 		carouselUrl.value = url;
@@ -54,7 +50,7 @@
 	};
 
 	// 下拉选择框
-	const selectValue = routerParams ? routerParams.kind : ref("");
+	const selectValue = carouselInfo ? ref(carouselInfo.kind) : ref("");
 	const selectOptions = [
 		{
 			value: "科学备考",
@@ -71,7 +67,7 @@
 	];
 
 	// 输入框-跳转地址
-	const inputValue = routerParams ? routerParams.skipUrl : ref("");
+	const inputValue = carouselInfo ? ref(carouselInfo.skipUrl) : ref("");
 	const validate = function () {};
 	function isURL(str_url) {
 		var strRegex =
@@ -98,12 +94,22 @@
 			});
 			return;
 		}
-		const res = await carouselApi.addCarousel({
-			imageUrl: carouselUrl.value,
-			kind: selectValue.value,
-			skipUrl: inputValue.value,
-			status: 0,
-		});
+		if (carouselInfo.id != null || carouselInfo.id != undefined) {
+			await carouselApi.modifyCarousel(carouselInfo.id, {
+				imageUrl: carouselUrl.value,
+				kind: selectValue.value,
+				skipUrl: inputValue.value,
+				status: 0,
+			});
+		} else {
+			await carouselApi.addCarousel({
+				imageUrl: carouselUrl.value,
+				kind: selectValue.value,
+				skipUrl: inputValue.value,
+				status: 0,
+			});
+		}
+
 		// 方案一：通过跳转到一个刷新页面再二次跳转到轮播图管理页实现刷新功能
 		// router.push({
 		// 	name: "Refresh",

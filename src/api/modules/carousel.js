@@ -23,6 +23,14 @@ async function addCarousel(data) {
 	});
 }
 
+async function modifyCarousel(slideShowId, data) {
+	return request({
+		url: "/slideshow/" + slideShowId,
+		method: "PUT",
+		data,
+	});
+}
+
 async function deleteCarousel(slideShowId) {
 	return request({
 		url: "/slideshow/" + slideShowId,
@@ -33,5 +41,6 @@ async function deleteCarousel(slideShowId) {
 export default {
 	getCarousel,
 	addCarousel,
+	modifyCarousel,
 	deleteCarousel,
 };

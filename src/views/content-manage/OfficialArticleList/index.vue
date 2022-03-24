@@ -12,7 +12,7 @@
 			:needPublishBtn="true"
 			@query-table-data="queryTableData"
 		/>
-		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
+		<Table :table-header="tableHeader" v-model:table-data="tableData" @delete-article="deleteArticle"></Table>
 		<div class="footer">
 			<Pagination
 				v-model:pageNum="paginationParams.pageNum"
@@ -37,6 +37,7 @@
 	import tableHeader from "./table-header";
 	// 引入路由
 	import { useRoute } from "vue-router";
+	// 引入接口
 	import { officialArticleApi } from "@/api";
 
 	// 路由信息
@@ -46,19 +47,19 @@
 	const inputOptions = [
 		{
 			label: "文章标题",
-			prop: "articleTitle",
+			prop: "title",
 			width: "100%",
 		},
 		{
 			label: "发布时间",
-			prop: "publishTime",
+			prop: "date",
 			width: "100%",
 		},
 	];
 	const selectOptions = [
 		{
 			label: "文章状态",
-			prop: "articleState",
+			prop: "status",
 			width: "100%",
 			options: [
 				{
@@ -77,7 +78,7 @@
 		},
 		{
 			label: "页签",
-			prop: "tag",
+			prop: "category",
 			width: "100%",
 			options: [
 				{
@@ -100,24 +101,24 @@
 		},
 		{
 			label: "排序",
-			prop: "sort",
+			prop: "orderType",
 			width: "100%",
 			options: [
 				{
-					label: "从按照阅读数从高到低",
-					value: "a",
+					label: "按照阅读数从高到低",
+					value: "0",
 				},
 				{
-					label: "从按照阅读数从低到高",
-					value: "b",
+					label: "按照阅读数从低到高",
+					value: "1",
 				},
 				{
-					label: "从按照发布时间从近至远",
-					value: "c",
+					label: "按照发布时间从近至远",
+					value: "2",
 				},
 				{
-					label: "从按照发布时间从远至今",
-					value: "d",
+					label: "按照发布时间从远至今",
+					value: "3",
 				},
 			],
 		},
@@ -152,6 +153,12 @@
 		total.value = res.data.total;
 	}
 	initTableData();
+
+	// 删除一条文章
+	const deleteArticle = async function (examPostId, userId) {
+		// TODO 改UserID
+		const res = await officialArticleApi.deleteOfficialArticle(examPostId, "123");
+	};
 
 	// 分页器
 	function handleSizeChange(pageSize) {

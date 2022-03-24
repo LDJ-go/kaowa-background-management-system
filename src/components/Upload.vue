@@ -71,7 +71,7 @@
 		name: "KilaKilaUploader",
 		// emits: ["handle-cover-img-url", "aboutToUpload", "remove-cover-img-url"],
 		emits: ["handle-img-url", "remove-img-url"],
-		props: ["carouselUrl"],
+		props: ["imgUrl"],
 		components: { VueEasyLightbox },
 		setup(props, context) {
 			// 进度条
@@ -156,8 +156,8 @@
 
 			onMounted(() => {
 				// 初始化时如果有URL地址就展示图片
-				if (props.carouselUrl) {
-					setImageUrl(props.carouselUrl);
+				if (props.imgUrl) {
+					setImageUrl(props.imgUrl);
 				}
 			});
 

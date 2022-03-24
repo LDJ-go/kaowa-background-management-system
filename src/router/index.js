@@ -58,6 +58,7 @@ const routes = [
 						path: "user-article-detail",
 						name: "UserArticleDetail",
 						component: () => import("@/views/content-manage/UserArticleDetail"),
+						props: true,
 					},
 				],
 			},

@@ -28,13 +28,13 @@
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-OAL'">
 					<div class="operation">
-						<span @click="routerToDetail(row, '/official-article-list/official-article-edit')">编辑</span>
+						<span @click="routerToEdit(row, 'OfficialArticleEdit')">编辑</span>
 						<span @click="toggleFix(row)">
 							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
 							{{ row.status == "上线" ? "下线" : "" }}
 						</span>
-						<span @click="toggleFix(row)">删除</span>
-						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
+						<span @click="deleteArticle(row)">删除</span>
+						<span @click="routerToDetail(row, 'OfficialArticleDetail')">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
@@ -43,7 +43,7 @@
 							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
 							{{ row.status == "上线" ? "下线" : "" }}
 						</span>
-						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
+						<span @click="routerToDetail(row, 'UserArticleDetail')">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-AE'">
@@ -83,8 +83,6 @@
 <script setup>
 	import { ref, defineProps, defineEmits } from "vue";
 	import { useRouter } from "vue-router";
-	// 引入接口
-	import { carouselApi } from "@/api"; // 轮播图
 
 	// props
 	const props = defineProps({
@@ -100,31 +98,25 @@
 		needCheckbox: { default: false },
 	});
 	// emits
-	const emits = defineEmits(["edit-tag", "delete-carousel"]);
+	const emits = defineEmits(["delete-article", "edit-tag", "delete-carousel"]);
 	// router
 	const router = useRouter();
 
-	// 表格的请求表单数据
-	const tableForm = ref({
-		query: "",
-		pagenum: 1,
-		pagesize: 2,
-	});
-
-	// 初始化表格数据
-	const initUserList = function () {
-		console.log("调用接口请求数据 -> 进行渲染");
-		// TODO 根据tableForm发送请求
+	// 文章管理
+	const routerToDetail = function (data, routerName) {
+		router.push({
+			name: routerName,
+			params: data,
+		});
 	};
-
-	// 筛选表格中的数据
-	const handletableData = function (data) {
-		// tableData.value = data;
+	const deleteArticle = function ({ id }) {
+		emits("delete-article", id);
 	};
-
-	// 路由跳转到文章详情页
-	const routerToDetail = function (data, path) {
-		router.push(path);
+	const routerToEdit = function (row, routerName) {
+		router.push({
+			name: routerName,
+			params: row,
+		});
 	};
 
 	// 页签管理-编辑页签
