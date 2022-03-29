@@ -66,67 +66,6 @@
 				},
 			],
 		},
-		{
-			label: "页签",
-			prop: "category",
-			width: "100%",
-			options: [
-				{
-					label: "考公",
-					value: "civilServant",
-				},
-				{
-					label: "考研",
-					value: "postgraduate",
-				},
-				{
-					label: "就业",
-					value: "job",
-				},
-				{
-					label: "全部",
-					value: "all",
-				},
-			],
-		},
-		{
-			label: "分区",
-			prop: "zone",
-			width: "100%",
-			options: [
-				{
-					label: "青蛙乐园",
-					value: "0",
-				},
-				{
-					label: "牛蛙经验",
-					value: "1",
-				},
-			],
-		},
-		{
-			label: "排序",
-			prop: "orderType",
-			width: "100%",
-			options: [
-				{
-					label: "按照阅读数从高到低",
-					value: "0",
-				},
-				{
-					label: "按照阅读数从低到高",
-					value: "1",
-				},
-				{
-					label: "按照发布时间从近至远",
-					value: "2",
-				},
-				{
-					label: "按照发布时间从远至近",
-					value: "3",
-				},
-			],
-		},
 	];
 	let formData = ref({
 		title: "", // 文章标题
