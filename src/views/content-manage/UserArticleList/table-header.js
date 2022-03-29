@@ -23,35 +23,30 @@ export default [
 	{
 		prop: "viewCount",
 		label: "阅读数",
-		width: 70,
 	},
 	{
 		prop: "usedCount",
 		label: "复用数",
-		width: 70,
 	},
 	{
 		prop: "commentCount",
 		label: "评论数",
-		width: 70,
 	},
 	{
 		prop: "shareCount",
 		label: "分享数",
-		width: 70,
 	},
 	{
 		prop: "favCount",
 		label: "收藏数",
-		width: 70,
 	},
 	{
 		prop: "status",
 		label: "状态",
-		width: 100,
 	},
 	{
 		prop: "operation-UAL",
 		label: "操作",
+		width: 140,
 	},
 ];

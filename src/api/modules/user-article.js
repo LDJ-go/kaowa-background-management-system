@@ -24,7 +24,7 @@ async function getUserPostDetail(id) {
 	});
 }
 
-async function deleteUserPost(userId, userPostId) {
+async function deleteUserPost(userPostId, userId) {
 	return request({
 		url: `/portal/userpost/online/${userPostId}/${userId}`,
 		method: "DELETE",

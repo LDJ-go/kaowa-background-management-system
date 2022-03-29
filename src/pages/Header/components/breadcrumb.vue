@@ -1,7 +1,7 @@
 <template>
 	<el-breadcrumb separator="/">
 		<el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
-			<span class="no-redirect" v-if="index === breadcrumbList.length - 1">{{ filterPath(item.name) }}</span>
+			<span class="no-redirect" v-if="index === breadcrumbList.length - 1">{{ filterPathToCH(item.name) }}</span>
 			<span class="redirect" v-else @click="handleRedirect(item.path)">{{ filterPath(item.name) }}</span>
 		</el-breadcrumb-item>
 	</el-breadcrumb>
@@ -28,6 +28,16 @@
 			immediate: true,
 		}
 	);
+
+	const filterPathToCH = function (name) {
+		if (route.params.articleEdit) {
+			return "修改文章";
+		} else if (route.params.articlePublish) {
+			return "发布文章";
+		} else {
+			return filterPath(name);
+		}
+	};
 
 	const router = useRouter();
 	const handleRedirect = function (path) {

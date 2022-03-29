@@ -12,7 +12,7 @@
 			:formData="formData"
 			@query-table-data="queryTableData"
 		/>
-		<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
+		<Table :table-header="tableHeader" v-model:table-data="tableData" @delete-article="deleteArticle"></Table>
 		<div class="footer">
 			<Pagination
 				:pageNum="paginationParams.pageNum"
@@ -176,6 +176,12 @@
 		total.value = res.data.total;
 	}
 	initTableData();
+
+	//删除一条文章
+	const deleteArticle = async function (userPostId, userId) {
+		console.log(userPostId, userId);
+		// const res = await userArticleApi.getUserPostByPage(userPostId, userId);
+	};
 
 	// 分页器
 	function handleSizeChange(pageSize) {

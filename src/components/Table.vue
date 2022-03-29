@@ -43,6 +43,7 @@
 							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
 							{{ row.status == "上线" ? "下线" : "" }}
 						</span>
+						<span @click="deleteArticle(row)">删除</span>
 						<span @click="routerToDetail(row, 'UserArticleDetail')">查看</span>
 					</div>
 				</template>
@@ -115,7 +116,10 @@
 	const routerToEdit = function (row, routerName) {
 		router.push({
 			name: routerName,
-			params: row,
+			params: {
+				articleInfo: JSON.stringify(row),
+				articleEdit: true,
+			},
 		});
 	};
 

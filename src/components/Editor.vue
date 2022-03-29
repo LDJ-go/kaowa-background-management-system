@@ -7,10 +7,16 @@
 
 <script setup>
 	import WangEditor from "wangeditor";
-	import { ref, reactive, onMounted, onBeforeUnmount, defineEmits } from "vue";
+	import { ref, onMounted, onBeforeUnmount, defineEmits, defineProps } from "vue";
 	import { ElMessage } from "element-plus";
 
 	const emits = defineEmits(["updata:moduleValue"]);
+	const props = defineProps({
+		editorHtml: {
+			type: String,
+			required: false,
+		},
+	});
 
 	const editor = ref();
 
@@ -68,24 +74,16 @@
 
 		// 配置 onchange 回调函数
 		instance.config.onchange = function (newHtml) {
-			emits("update:modelValue", newHtml);
+			// emits("update:modelValue", newHtml);
 		};
 		// 配置触发 onchange 的时间频率，默认为 200ms
 		// instance.config.onchangeTimeout = 500; // 修改为 500ms
 
 		// 创建
 		instance.create();
+		// 初始化内容
+		instance.txt.html(props.editorHtml);
 	});
-
-	// const content = reactive({
-	// 	html: "",
-	// 	text: "",
-	// });
-	// const syncHTML = () => {
-	// 	content.html = instance.txt.html();
-	// 	content.text = instance.txt.text();
-	// 	console.log(content);
-	// };
 
 	// 组件销毁时，也及时销毁编辑器
 	onBeforeUnmount(() => {

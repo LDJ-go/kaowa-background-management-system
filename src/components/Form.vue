@@ -47,6 +47,7 @@
 	import { ref, defineProps, defineEmits } from "vue";
 	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
 	import { useRouter } from "vue-router";
+	import officialArticle from "@/api/modules/official-article";
 
 	const props = defineProps({
 		formData: {
@@ -102,7 +103,12 @@
 	// 路由跳转至发布官方文章
 	const router = useRouter();
 	const routerToPublish = function () {
-		router.push("/official-article-list/official-article-publish");
+		router.push({
+			name: "OfficialArticleEdit",
+			params: {
+				articlePublish: true,
+			},
+		});
 	};
 
 	// 路由跳转至新增xxx页面

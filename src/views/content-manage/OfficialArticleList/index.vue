@@ -156,8 +156,8 @@
 
 	// 删除一条文章
 	const deleteArticle = async function (examPostId, userId) {
-		// TODO 改UserID
-		const res = await officialArticleApi.deleteOfficialArticle(examPostId, "123");
+		// TODO 改 UserID
+		// const res = await officialArticleApi.deleteOfficialArticle(examPostId, "123");
 	};
 
 	// 分页器

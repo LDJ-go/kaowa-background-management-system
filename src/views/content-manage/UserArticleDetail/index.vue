@@ -12,16 +12,16 @@
 				<el-col :span="12">
 					<el-row class="article-info-item">
 						<el-col :span="4"><div>用户账号：</div></el-col>
-						<el-col :span="8"><div>201945612789</div></el-col>
+						<el-col :span="8">{{ articleDetail.account }}</el-col>
 					</el-row>
 					<el-row class="article-info-item">
 						<el-col :span="4"><div>用户昵称：</div></el-col>
-						<el-col :span="8"><div>一路向北</div></el-col>
+						<el-col :span="8">{{ articleDetail.authorNickName }}</el-col>
 					</el-row>
 					<el-row class="article-info-item">
 						<el-col :span="4"><div>用户头像：</div></el-col>
 						<el-col :span="8">
-							<img src="../../../assets/avatar/avatar.jpg" alt="用户头像" class="avatar" />
+							<img :src="articleDetail.authorAvatarUrl" alt="用户头像" class="avatar" />
 						</el-col>
 					</el-row>
 				</el-col>
@@ -51,46 +51,44 @@
 		<div>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>文章标题：</div></el-col>
-				<el-col :span="18"><div>考研必看宝典</div></el-col>
+				<el-col :span="18">{{ articleDetail.title }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>文章摘要：</div></el-col>
-				<el-col :span="18"><div>xxxxxxxxxxxxxxxxxxx</div></el-col>
+				<el-col :span="18">{{ articleDetail.summary }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>文章正文：</div></el-col>
-				<el-col :span="18"><div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div></el-col>
+				<el-col :span="18">{{ articleDetail.content }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>文章封面：</div></el-col>
 				<el-col :span="18">
-					<img
-						src="https://img1.baidu.com/it/u=3354940591,649439089&fm=253&fmt=auto&app=120&f=PNG?w=1246&h=698"
-						alt="文章标题"
-						width="200"
-					/>
+					<img :src="articleDetail.titleImageUrl" alt="文章标题" width="200" />
 				</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>发布时间：</div></el-col>
-				<el-col :span="18"><div>2022-02-19 11:11:20</div></el-col>
+				<el-col :span="18">{{ articleDetail.startTime }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>话题标签：</div></el-col>
-				<el-col :span="18"><div>#考研 #学习方法</div></el-col>
+				<el-col :span="18">{{ articleDetail.tags }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div style="text-indent: 2em">页签：</div></el-col>
-				<el-col :span="18"><div>考研</div></el-col>
+				<el-col :span="18">{{ articleDetail.categoryName }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div style="text-indent: 2em">分区：</div></el-col>
-				<el-col :span="18"><div>青蛙乐园</div></el-col>
+				<el-col :span="18">{{ articleDetail.zone ? "青蛙乐园" : "牛蛙经验" }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>参考链接：</div></el-col>
 				<el-col :span="18">
-					<a href="www.baidu.com">百度</a>
+					<span v-for="(item, index) in articleDetail.linkUrlList" :key="index">
+						<a :href="item.url">{{ item.name }}</a>
+					</span>
 				</el-col>
 			</el-row>
 		</div>
@@ -106,33 +104,56 @@
 		<div>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>点赞数：</div></el-col>
-				<el-col :span="18"><div>36</div></el-col>
+				<el-col :span="18">{{ articleDetail.likeCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>分享数：</div></el-col>
-				<el-col :span="18"><div>111</div></el-col>
+				<el-col :span="18">{{ articleDetail.shareCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>评论数：</div></el-col>
-				<el-col :span="18"><div>15</div></el-col>
+				<el-col :span="18">{{ articleDetail.commentCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>收藏数：</div></el-col>
-				<el-col :span="18"><div>30</div></el-col>
+				<el-col :span="18">{{ articleDetail.favCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>复用数：</div></el-col>
-				<el-col :span="18"><div>30</div></el-col>
+				<el-col :span="18">{{ articleDetail.usedCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>阅读数：</div></el-col>
-				<el-col :span="18"><div>30</div></el-col>
+				<el-col :span="18">{{ articleDetail.viewCount }}</el-col>
 			</el-row>
 		</div>
 	</div>
 </template>
 
-<script setup></script>
+<script setup>
+	import { ref } from "vue";
+	import { useRoute, useRouter } from "vue-router";
+	import { userArticleApi } from "@/api";
+
+	const route = useRoute();
+	const router = useRouter();
+	if (route.params.id == null || route.params.id == undefined) {
+		router.push({
+			name: "UserArticleList",
+		});
+	}
+
+	// 文章详情信息
+	const articleDetail = ref({});
+
+	const initArticleDetail = async function () {
+		const res = await userArticleApi.getUserPostDetail(route.params.id);
+		articleDetail.value = res.data;
+		console.log(articleDetail.value);
+	};
+
+	initArticleDetail();
+</script>
 
 <style lang="scss">
 	.bg-purple-light {
@@ -152,6 +173,13 @@
 			height: 77px;
 			border-radius: 50%;
 			margin: 0 0 10px px 0;
+		}
+		span {
+			margin-right: 10px;
+			a {
+				color: #00bffc;
+				text-decoration: underline;
+			}
 		}
 	}
 </style>

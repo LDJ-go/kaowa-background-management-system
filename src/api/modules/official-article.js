@@ -24,6 +24,14 @@ async function getOfficialArticleDetail(examPostId) {
 	});
 }
 
+async function editOfficialArticle(userId, data) {
+	return request({
+		url: `/portal/exampost/manage/publish/${userId}`,
+		method: "PUT",
+		data,
+	});
+}
+
 async function deleteOfficialArticle(examPostId, userId) {
 	return request({
 		url: `/portal/exampost/manage/delete/${examPostId}/${userId}`,
@@ -36,4 +44,5 @@ export default {
 	searchOfficialArticle,
 	getOfficialArticleDetail,
 	deleteOfficialArticle,
+	editOfficialArticle,
 };

@@ -2,7 +2,7 @@
 	<el-input v-model="title" maxlength="64" placeholder="请输入文章标题" show-word-limit type="text" />
 
 	<!-- <Editor @handle-editor-data="handleEditorData" v-model="editorHtml"></Editor> -->
-	<Editor v-model="editorHtml"></Editor>
+	<Editor v-if="hasEditorHtml" v-model="editorHtml" :editorHtml="editorHtml"></Editor>
 
 	<el-input
 		v-model="summary"
@@ -50,7 +50,7 @@
 	</div>
 
 	<div class="btn-container">
-		<el-button @click="save">更改</el-button>
+		<el-button @click="save">保存为草稿</el-button>
 		<el-button @click="reset">重置</el-button>
 		<el-button @click="publish">发布</el-button>
 	</div>
@@ -99,10 +99,11 @@
 		titleImageUrl.value = url;
 	};
 
-	// 初始化页面
+	// 初始化页面: 当有数据传入时（编辑文章）
+	const hasEditorHtml = ref(false); // 有没有editorHtml数据，控制Editor子组件的渲染
 	const articleDetail = ref({});
 	const initArticleDetail = async function () {
-		const res = await officialArticleApi.getOfficialArticleDetail(route.params.id);
+		const res = await officialArticleApi.getOfficialArticleDetail(articleInfo.id);
 		articleDetail.value = res.data;
 
 		title.value = articleDetail.value.title;
@@ -112,15 +113,21 @@
 		linkUrlList.value = articleDetail.value.linkUrlList;
 		tags.value = articleDetail.value.tags;
 		category.value = articleDetail.value.categoryId;
+
+		hasEditorHtml.value = true;
 	};
-	if (route.params.id != null || route.params.id != undefined) {
+	const articleInfo = route.params.articleInfo ? JSON.parse(route.params.articleInfo) : ""; // 路由传来的文章信息
+	if (articleInfo.id != null || articleInfo.id != undefined) {
 		// 如果路由参数不为空，则初始化-修改文章
 		initArticleDetail();
+	} else {
+		hasEditorHtml.value = true;
 	}
 
-	// 保存为草稿
-	const save = function () {
-		console.log(typeof category.value);
+	// 保存为草稿 //TODO
+	const save = async function () {
+		const userId = ref("123"); //TODO
+		const res = await officialArticleApi.editOfficialArticle(userId);
 	};
 
 	// 重置
