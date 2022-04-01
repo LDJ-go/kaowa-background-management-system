@@ -121,10 +121,10 @@ const MENU_LIST = [
 			},
 			{
 				id: 52,
-				authName: "角色权限管理",
+				authName: "日志管理",
 				children: [],
 				order: null,
-				path: "role-manage",
+				path: "log-manage",
 			},
 		],
 		order: 5,

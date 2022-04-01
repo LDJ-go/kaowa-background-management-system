@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<!-- <Form @handle-table-data="handleTableData" /> -->
 		<Form
 			:selectOptions="selectOptions"
 			:inputOptions="inputOptions"
@@ -34,6 +33,7 @@
 	import Pagination from "@/components/Pagination.vue";
 	import { options as tableHeader } from "./options.js";
 	import cancelELButtonFocus from "@/utils/cancel-el-button-focus.js";
+	import { userApi } from "@/api";
 
 	// 表单相关数据
 	const inputOptions = [
@@ -70,7 +70,7 @@
 			],
 		},
 		{
-			label: "账户状态",
+			label: "账号状态",
 			prop: "accountStatus",
 			width: "100%",
 			options: [
@@ -142,11 +142,6 @@
 	const initUserList = function () {
 		console.log("调用接口请求数据 -> 进行渲染");
 		// TODO 根据tableReqParam发送请求
-	};
-
-	// 筛选表格中的数据
-	const handleTableData = function (data) {
-		tableData.value = data;
 	};
 
 	// 多选选中的数据

@@ -1,3 +1,4 @@
+<!-- 用户文章列表页 -->
 <template>
 	<Form
 		:selectOptions="selectOptions"
@@ -5,11 +6,11 @@
 		:formData="formData"
 		@query-table-data="queryTableData"
 	/>
-	<Table :table-header="tableHeader" v-model:table-data="tableData" @delete-article="deleteArticle"></Table>
+	<Table :table-header="tableHeader" v-model:table-data="tableData"></Table>
 	<div class="footer">
 		<Pagination
-			:pageNum="paginationParams.pageNum"
-			:pageSize="paginationParams.pageSize"
+			:pageNum="tableReqParam.pageNum"
+			:pageSize="tableReqParam.pageSize"
 			:total="total"
 			@handle-size-change="handleSizeChange"
 			@handle-current-page-change="handleCurrentPageChange"
@@ -32,12 +33,12 @@
 	const inputOptions = [
 		{
 			label: "文章标题",
-			prop: "title",
+			prop: "articleTitle",
 			width: "100%",
 		},
 		{
 			label: "发布时间",
-			prop: "date",
+			prop: "publishTime",
 			width: "100%",
 		},
 		{
@@ -48,55 +49,64 @@
 	];
 	const selectOptions = [
 		{
-			label: "文章状态",
-			prop: "status",
+			label: "评论状态",
+			prop: "articleState",
 			width: "100%",
 			options: [
 				{
 					label: "已上线",
-					value: "1",
+					value: "online",
 				},
 				{
 					label: "已下线",
-					value: "0",
+					value: "offline",
 				},
 				{
-					label: "草稿",
-					value: "2",
+					label: "全部",
+					value: "all",
 				},
 			],
 		},
 	];
 	let formData = ref({
-		title: "", // 文章标题
-		date: "", // 发布时间
-		status: "", // 账号状态
-		category: "", // 页签
-		orderType: "", // 排序
-		userName: "", // 用户名
-		zone: "", // 分区
-	});
-	let paginationParams = ref({
-		pageNum: 1,
-		pageSize: 5,
+		partition: "",
+		categoryName: "",
+		authorNickName: "",
+		totalComments: "",
+		commentsNumber: "",
+		commentState: "",
+		articleTitle: "",
 	});
 	// 表单请求方法
-	let queryTableData = async function () {};
+	let queryTableData = function (param) {
+		console.log(param);
+	};
 
 	// 表格相关数据
 	let tableData = ref([]);
+	let tableReqParam = ref({
+		pageNum: 1,
+		pageSize: 2,
+	});
 	let total = ref(0);
+
+	// 初始化表格数据，分页请求表格数据
+	async function initTableData() {}
+	initTableData();
 
 	// 分页器
 	function handleSizeChange(pageSize) {
-		// paginationParams.value.pageNum = 1;
-		paginationParams.value.pageSize = pageSize;
-		queryTableData();
+		console.log("asd");
 	}
 	function handleCurrentPageChange(pageNum) {
-		paginationParams.value.pageNum = pageNum;
-		queryTableData();
+		console.log("zxc");
 	}
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+	.footer {
+		margin-top: 20px;
+		display: flex;
+		justify-content: right;
+	}
+</style>

@@ -17,11 +17,6 @@
 		></Table>
 
 		<div class="table-footer">
-			<div>
-				<el-button @click="batchFreeze">批量冻结</el-button>
-				<el-button @click="batchThaw">批量启用</el-button>
-				<el-button>新增账户</el-button>
-			</div>
 			<Pagination
 				:pageNum="paginationParams.pageNum"
 				:pageSize="paginationParams.pageSize"
@@ -85,10 +80,11 @@
 	// 表格数据
 	const tableData = ref([
 		{
-			accountName: "DJ",
-			name: "DJ",
-			phoneNumber: "18122226666",
-			state: "正常",
+			logID: "1101",
+			administratorsAccount: "201943333333",
+			operationTime: "2022.03.25 19:23:14",
+			operationType: "新增",
+			operationDetail: "新增文章（ID 10011）",
 		},
 	]);
 
@@ -97,32 +93,6 @@
 		console.log("调用接口请求数据 -> 进行渲染");
 		// TODO 根据tableReqParam发送请求
 	};
-
-	// 多选选中的数据
-	let selectedUserList = ref([]);
-	const handleSelectionChange = function (data) {
-		selectedUserList.value = data;
-		// console.log(data);
-	};
-
-	// 冻结一条数据
-	const freeze = function (data) {
-		console.log(data);
-	};
-
-	// 批量冻结
-	const batchFreeze = function (event) {
-		for (let i = 0; i < selectedUserList.value.length; i++) {
-			console.log(selectedUserList.value[i]);
-		}
-		ElMessage({
-			message: "批量冻结成功",
-			type: "success",
-		});
-		cancelELButtonFocus(event);
-	};
-	// 批量启用
-	const batchThaw = function () {};
 
 	// 分页器
 	let total = ref(0);
@@ -142,17 +112,9 @@
 </script>
 
 <style lang="scss" scoped>
-	.el-button:focus,
-	.el-button:hover {
-		color: $bgColor;
-		border-color: $bgColor;
-		background-color: $bgColor;
-		color: #000;
-	}
-
 	.table-footer {
 		display: flex;
-		justify-content: space-between;
+		justify-content: right;
 		margin-top: 20px;
 	}
 </style>

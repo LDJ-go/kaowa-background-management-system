@@ -20,13 +20,15 @@
 				resizable="true"
 				align="center"
 			>
-				<template v-slot="{ row }" v-if="item.prop === 'operation-UL'">
+				<template v-slot="{ row }" v-if="item.prop === 'operation-UL' || item.prop === 'operation-OL'">
+					<!-- 用户列表 机构号列表 -->
 					<div class="operation">
-						<span @click="toggleFix(row)">冻结</span>
+						<span @click="freeze(row)">冻结</span>
 						<span @click="toggleFix(row)">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-OAL'">
+					<!-- 官方文章管理 -->
 					<div class="operation">
 						<span @click="routerToEdit(row, 'OfficialArticleEdit')">编辑</span>
 						<span @click="toggleFix(row)">
@@ -37,7 +39,16 @@
 						<span @click="routerToDetail(row, 'OfficialArticleDetail')">查看</span>
 					</div>
 				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-COM'">
+					<!-- 评论管理 -->
+					<div class="operation">
+						<span @click="toggleFix(row)" v-if="item.commentState == '已启用'">停用</span>
+						<span @click="toggleFix(row)">启动</span>
+						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
+					</div>
+				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
+					<!-- 用户文章管理 -->
 					<div class="operation">
 						<span @click="toggleFix(row)">
 							{{ row.status == "下线" || row.status == "草稿" ? "上线" : "" }}
@@ -48,6 +59,7 @@
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-AE'">
+					<!-- 牛蛙内容审核 -->
 					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
 						<span @click="toggleFix(row)">下线</span>
@@ -56,6 +68,7 @@
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-TM'">
+					<!-- 页签管理 -->
 					<div class="operation">
 						<span @click="toggleFix(row)">上线</span>
 						<span @click="toggleFix(row)">下线</span>
@@ -64,16 +77,40 @@
 						<span @click="toggleFix(row)">下移</span>
 					</div>
 				</template>
-				<!-- 轮播图管理 -->
+
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-CM'">
+					<!-- 轮播图管理 -->
 					<div class="operation">
 						<span @click="deleteCarousel(row)">删除</span>
 						<span @click="editCarousel(row)">编辑</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'imageUrl'">
+					<!-- 展示图片 -->
 					<div>
 						<img :src="row.imageUrl" alt="" height="100" />
+					</div>
+				</template>
+
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-PM'">
+					<!-- 分区管理 -->
+					<div class="operation">
+						<span @click="toggleFix(row)">删除</span>
+						<span @click="toggleFix(row)">编辑</span>
+					</div>
+				</template>
+
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-AM'">
+					<!-- 管理员账号管理 -->
+					<div class="operation">
+						<span @click="toggleFix(row)">删除</span>
+						<span @click="toggleFix(row)">编辑</span>
+					</div>
+				</template>
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-LM'">
+					<!-- 日志管理 -->
+					<div class="operation">
+						<span @click="toggleFix(row)">查看</span>
 					</div>
 				</template>
 			</el-table-column>
@@ -99,9 +136,18 @@
 		needCheckbox: { default: false },
 	});
 	// emits
-	const emits = defineEmits(["delete-article", "edit-tag", "delete-carousel"]);
+	const emits = defineEmits(["delete-article", "edit-tag", "delete-carousel", "selection-change", "freeze"]);
 	// router
 	const router = useRouter();
+
+	// 多选框
+	const handleSelectionChange = function (data) {
+		emits("selection-change", data);
+	};
+	// 冻结用户
+	const freeze = function (row) {
+		emits("freeze", row);
+	};
 
 	// 文章管理
 	const routerToDetail = function (data, routerName) {

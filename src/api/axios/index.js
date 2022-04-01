@@ -51,17 +51,20 @@ function myAxios(axiosConfig, customOptions, loadingOptions) {
 					LoadingInstance._target = ElLoading.service(loadingOptions);
 				}
 			}
+
 			// 自动携带token
 			if (getToken() && typeof window !== "undefined") {
 				// typeof window !== "undefined" 为了兼容ssr的环境情况
 				if (diffTokenTime()) {
 					store.dispatch("user/logout");
-					return Promise.reject(new Error("token 失效了"));
+					ElMessage({
+						type: "error",
+						message: "token 失效了",
+					});
+					// return Promise.reject(new Error("token 失效了"));
 				}
 			}
-			// config.headers.Authorization = getToken();
-			config.headers.Authorization =
-				"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkMWYwNTM5NzU1OTMwMmFkYTc2YjU4YjZiMTdlMDNkYSIsImNyZWF0ZWQiOjE2NDc3NDAwNzk0MTQsImV4cCI6MTY0ODM0NDg3OX0.sGCJ0byelw5RQex0TEyz0SadYlbEU84n5v3S655xzD_LEB9p_IRkGoR9_cu9L64YxVIebq7a1Y3LgOkSsIqaBQ";
+			config.headers.Authorization = getToken();
 
 			return config;
 		},
@@ -76,6 +79,7 @@ function myAxios(axiosConfig, customOptions, loadingOptions) {
 			custom_options.loading && closeLoading(custom_options); // 关闭loading
 			// 在code不等于0的时候，我们就直接展示后端带来的提示语
 			if (custom_options.code_message_show && response.data && response.data.code !== 0) {
+				console.log(response);
 				ElMessage({
 					type: "error",
 					message: response.data.message,

@@ -1,13 +1,13 @@
 import request from "../axios";
 
-async function login(userInfo) {
+async function getUserList(params) {
 	return request({
-		url: "",
-		method: "",
-		data: userInfo,
+		url: "/portal/manage/user/listAll",
+		method: "GET",
+		params,
 	});
 }
 
 export default {
-	login,
+	getUserList,
 };

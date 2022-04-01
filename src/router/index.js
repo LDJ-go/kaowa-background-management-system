@@ -112,9 +112,9 @@ const routes = [
 				component: () => import("@/views/system-authority/AdministratorManage"),
 			},
 			{
-				path: "role-manage",
-				name: "RoleManage",
-				component: () => import("@/views/system-authority/RoleManage"),
+				path: "log-manage",
+				name: "LogManage",
+				component: () => import("@/views/system-authority/LogManage"),
 			},
 			{
 				path: "data-statistics",

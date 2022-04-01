@@ -33,8 +33,7 @@
 	import { menuApi as getMenuList } from "@/api/index";
 	import { ref, watchEffect } from "vue";
 	import router from "@/router";
-
-	const primaryIcon = ref(["user", "setting", "shop", "tickets", "pie-chart", "setting"]);
+	const primaryIcon = ref(["user", "tickets", "collection-tag", "notification", "setting", "pie-chart"]);
 	const secondaryIcon = ref(["menu"]);
 
 	const menuList = ref({});
