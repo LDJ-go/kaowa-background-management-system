@@ -1,18 +1,18 @@
 export const options = [
 	{
-		prop: "userID",
+		prop: "id",
 		label: "ID",
 	},
 	{
-		prop: "userName",
+		prop: "nickName",
 		label: "用户昵称",
 	},
 	{
-		prop: "account",
+		prop: "phone",
 		label: "用户账户/手机号",
 	},
 	{
-		prop: "sex",
+		prop: "gender",
 		label: "性别",
 		width: 80,
 	},
@@ -21,11 +21,11 @@ export const options = [
 		label: "注册时间",
 	},
 	{
-		prop: "last_login_time",
+		prop: "loginTime",
 		label: "最近登陆时间",
 	},
 	{
-		prop: "state",
+		prop: "freeze",
 		label: "状态",
 		width: 100,
 	},

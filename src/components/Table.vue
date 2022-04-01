@@ -23,7 +23,8 @@
 				<template v-slot="{ row }" v-if="item.prop === 'operation-UL' || item.prop === 'operation-OL'">
 					<!-- 用户列表 机构号列表 -->
 					<div class="operation">
-						<span @click="freeze(row)">冻结</span>
+						<span v-if="row.freeze == '正常'" @click="toggleFreeze(row.id, 0)">冻结</span>
+						<span v-if="row.freeze == '冻结'" @click="toggleFreeze(row.id, 1)">启用</span>
 						<span @click="toggleFix(row)">查看</span>
 					</div>
 				</template>
@@ -136,7 +137,7 @@
 		needCheckbox: { default: false },
 	});
 	// emits
-	const emits = defineEmits(["delete-article", "edit-tag", "delete-carousel", "selection-change", "freeze"]);
+	const emits = defineEmits(["delete-article", "edit-tag", "delete-carousel", "selection-change", "toggleFreeze"]);
 	// router
 	const router = useRouter();
 
@@ -145,8 +146,8 @@
 		emits("selection-change", data);
 	};
 	// 冻结用户
-	const freeze = function (row) {
-		emits("freeze", row);
+	const toggleFreeze = function (id, type) {
+		emits("toggleFreeze", id, type);
 	};
 
 	// 文章管理
