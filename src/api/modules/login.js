@@ -1,6 +1,6 @@
 import request from "../axios";
 
-async function login() {
+async function wxlogin() {
 	return request({
 		url: "/portal/login",
 		method: "POST",
@@ -10,6 +10,18 @@ async function login() {
 	});
 }
 
+async function login() {
+	return request({
+		url: "/portal/admin-login",
+		method: "POST",
+		data: {
+			password: "admin",
+			username: "admin",
+		},
+	});
+}
+
 export default {
+	wxlogin,
 	login,
 };

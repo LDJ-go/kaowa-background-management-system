@@ -29,8 +29,8 @@
 	const store = useStore();
 
 	const form = ref({
-		username: "admin",
-		password: "123456",
+		username: "", //admin
+		password: "", //admin
 	});
 
 	// 定义表单验证规则

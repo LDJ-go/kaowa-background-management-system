@@ -7,6 +7,7 @@ function resolve(dir) {
 const webpack = require("webpack");
 
 module.exports = defineConfig({
+	publicPath: "/admin",
 	transpileDependencies: true,
 	chainWebpack(config) {
 		// 设置 svg-sprite-loader

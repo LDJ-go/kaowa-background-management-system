@@ -15,6 +15,9 @@ import SvgIcon from "@/assets/icons/index";
 // Scss
 import "@/styles/index.scss";
 
+// 路由权限
+import "@/router/premission";
+
 const app = createApp(App);
 
 SvgIcon(app);

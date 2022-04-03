@@ -1,6 +1,6 @@
 export default [
 	{
-		prop: "zone",
+		prop: "areaName",
 		label: "分区",
 	},
 	{

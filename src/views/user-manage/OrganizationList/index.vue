@@ -111,36 +111,46 @@
 	// 表格数据
 	const tableData = ref([
 		{
-			OrganizationID: 123,
-			OrganizationName: "DJ",
-			phoneNumber: "18122226666",
-			registration_time: "2022-01-26 12：01",
-			last_login_time: "2022-03-12 12：01",
+			OrganizationID: 1001,
+			OrganizationName: "考虫",
+			phoneNumber: "xxxxxxxxxxx",
+			registration_time: "2022-02-26 15：01",
+			last_login_time: "2022-03-12 18：01",
 			state: "正常",
 		},
 		{
-			OrganizationID: 456,
-			OrganizationName: "Peter",
-			phoneNumber: "13366665555",
+			OrganizationID: 1002,
+			OrganizationName: "新东方",
+			phoneNumber: "xxxxxxxxxxx",
 			registration_time: "2022-02-16 12：01",
-			last_login_time: "2022-03-10 12：01",
+			last_login_time: "2022-03-18 12：31",
 			state: "正常",
 		},
 		{
-			OrganizationID: 789,
-			OrganizationName: "LH",
-			phoneNumber: "13577776666",
-			registration_time: "2022-01-26 12：01",
-			last_login_time: "2022-03-02 12：01",
+			OrganizationID: 1003,
+			OrganizationName: "高途",
+			phoneNumber: "xxxxxxxxxxx",
+			registration_time: "2022-02-06 22：01",
+			last_login_time: "2022-03-24 12：51",
+			state: "正常",
+		},
+		{
+			OrganizationID: 1004,
+			OrganizationName: "尚德机构",
+			phoneNumber: "xxxxxxxxxxx",
+			registration_time: "2022-02-06 08：15",
+			last_login_time: "2022-03-24 14：01",
+			state: "正常",
+		},
+		{
+			OrganizationID: 1005,
+			OrganizationName: "米堆学堂",
+			phoneNumber: "xxxxxxxxxxx",
+			registration_time: "2022-01-16 18：01",
+			last_login_time: "2022-03-14 12：41",
 			state: "正常",
 		},
 	]);
-
-	// 初始化表格数据
-	const initUserList = function () {
-		console.log("调用接口请求数据 -> 进行渲染");
-		// TODO 根据tableReqParam发送请求
-	};
 
 	// 多选选中的数据
 	let selectedUserList = ref([]);
@@ -183,6 +193,14 @@
 		paginationParams.value.pageNum = pageNum;
 		queryTableData();
 	};
+
+	// 初始化表格数据
+	const initUserList = function () {
+		console.log("调用接口请求数据 -> 进行渲染");
+		total.value = 5;
+		// TODO 根据tableReqParam发送请求
+	};
+	initUserList();
 </script>
 
 <style lang="scss" scoped>

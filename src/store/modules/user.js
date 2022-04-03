@@ -10,7 +10,7 @@ export default {
 	actions: {
 		// 登录
 		async login(context, userInfo) {
-			if (userInfo.username == "admin" && userInfo.password == "123456") {
+			if (userInfo.username == "admin" && userInfo.password == "admin") {
 				try {
 					const res = await loginApi.login();
 					context.commit("setToken", res.data.token); // 调用mutations里的方法存储token

@@ -146,7 +146,8 @@
 	.form-container {
 		padding: 20px 0 0 0;
 		margin-bottom: 20px;
-		background-color: #dedddd;
+		background-color: #eeecec;
+		border-radius: 5px;
 	}
 
 	.btn-container {

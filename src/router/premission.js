@@ -3,6 +3,8 @@ import { getToken } from "@/utils/auth";
 
 const whiteList = ["/login"];
 
+console.log("asd");
+
 router.beforeEach((to, from, next) => {
 	if (getToken()) {
 		if (to.path === "/login") {
