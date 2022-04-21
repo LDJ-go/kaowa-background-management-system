@@ -138,6 +138,7 @@
 		const res = await carouselApi.getCarousel({
 			params: tableReqParams.value,
 		});
+		console.log(res);
 		total.value = res.data.total;
 		tableData.value = res.data.list;
 	}

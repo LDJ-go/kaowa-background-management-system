@@ -13,5 +13,6 @@ module.exports = {
 		"prettier/prettier": 0,
 		"vue/multi-word-component-names": 0,
 		"no-unused-vars": 0,
+		// requireConfigFile: false,
 	},
 };

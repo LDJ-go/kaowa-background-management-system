@@ -28,7 +28,7 @@
 				<el-col :span="12">
 					<el-row class="article-info-item">
 						<el-col :span="5"><div>身份认证：</div></el-col>
-						<el-col :span="8">
+						<el-col :span="7">
 							<img
 								src="https://img1.baidu.com/it/u=3560216012,1308596030&fm=253&fmt=auto&app=138&f=JPEG?w=610&h=500"
 								alt=""
@@ -120,7 +120,7 @@
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>复用数：</div></el-col>
-				<el-col :span="18">{{ articleDetail.usedCount }}</el-col>
+				<el-col :span="18">{{ articleDetail.tryingCount }}</el-col>
 			</el-row>
 			<el-row class="article-info-item">
 				<el-col :span="4"><div>阅读数：</div></el-col>
@@ -133,13 +133,13 @@
 <script setup>
 	import { ref } from "vue";
 	import { useRoute, useRouter } from "vue-router";
-	import { userArticleApi } from "@/api";
+	import { bullfrogApi } from "@/api";
 
 	const route = useRoute();
 	const router = useRouter();
 	if (route.params.id == null || route.params.id == undefined) {
 		router.push({
-			name: "UserArticleList",
+			name: "BullfrogArticleExamine",
 		});
 	}
 
@@ -147,7 +147,7 @@
 	const articleDetail = ref({});
 
 	const initArticleDetail = async function () {
-		const res = await userArticleApi.getUserPostDetail(route.params.id);
+		const res = await bullfrogApi.getPostDetail(route.params.id);
 		articleDetail.value = res.data;
 		console.log(articleDetail.value);
 	};

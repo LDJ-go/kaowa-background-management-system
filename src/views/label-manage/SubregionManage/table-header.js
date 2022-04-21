@@ -1,19 +1,19 @@
 export default [
 	{
-		prop: "partitionId",
+		prop: "id",
 		label: "分区ID",
 		// width: 80,
 	},
 	{
-		prop: "partitionName",
+		prop: "name",
 		label: "分区名称",
 	},
 	{
-		prop: "contentTotal",
+		prop: "count",
 		label: "内容数量",
 	},
 	{
-		prop: "state",
+		prop: "isDelete",
 		label: "状态",
 		width: 100,
 	},

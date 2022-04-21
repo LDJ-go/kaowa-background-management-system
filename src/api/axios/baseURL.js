@@ -5,7 +5,7 @@ if (process.env.NODE_ENV == "development") {
 } else if (process.env.NODE_ENV == "debug") {
 	BASE_URL = "";
 } else if (process.env.NODE_ENV == "production") {
-	BASE_URL = "http://106.52.192.138:8111";
+	BASE_URL = "/api";
 }
 
 export default BASE_URL;

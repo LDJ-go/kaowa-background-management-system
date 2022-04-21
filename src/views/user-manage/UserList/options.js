@@ -17,7 +17,7 @@ export const options = [
 		width: 80,
 	},
 	{
-		prop: "registration_time",
+		prop: "gmtCreate",
 		label: "注册时间",
 	},
 	{

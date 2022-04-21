@@ -10,7 +10,7 @@ async function getCarousel({
 } = {}) {
 	return request({
 		url: "/slideshow",
-		type: "GET",
+		method: "GET",
 		params,
 	});
 }

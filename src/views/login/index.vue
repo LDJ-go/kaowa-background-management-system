@@ -23,14 +23,23 @@
 </template>
 
 <script setup>
-	import { ref } from "vue";
+	import { ref, onMounted } from "vue";
 	import { useStore } from "vuex";
 
 	const store = useStore();
 
+	onMounted(() => {
+		document.addEventListener("keyup", (e) => {
+			const key = window.event.keyCode;
+			if (key == 13) {
+				handleLogin();
+			}
+		});
+	});
+
 	const form = ref({
-		username: "", //admin
-		password: "", //admin
+		username: "admin", //admin
+		password: "admin", //admin
 	});
 
 	// 定义表单验证规则

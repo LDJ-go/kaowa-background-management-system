@@ -4,10 +4,10 @@
 		:inputOptions="inputOptions"
 		:formData="formData"
 		:needAdd="true"
-		@add-tag="addTag"
+		@add-category="addCategory"
 		@query-table-data="queryTableData"
 	/>
-	<Table :table-header="tableHeader" v-model:table-data="tableData" @edit-tag="editTag"></Table>
+	<Table :table-header="tableHeader" v-model:table-data="tableData" @edit-category="editCategory"></Table>
 	<div class="footer">
 		<Pagination
 			:pageNum="paginationParams.pageNum"
@@ -17,13 +17,13 @@
 			@handle-current-page-change="handleCurrentPageChange"
 		></Pagination>
 	</div>
-	<!-- <Dialog
+	<Dialog
 		v-model:dialogTableVisible="dialogTableVisible"
 		:dialogTitle="dialogTitle"
 		:dialogTableValue="dialogTableValue"
 		v-if="dialogTableVisible"
 		@initTableData="initTableData"
-	/> -->
+	/>
 </template>
 
 <script setup>
@@ -35,13 +35,13 @@
 	// 引入分页器组件
 	import Pagination from "@/components/Pagination.vue";
 	// 引入对话框组件
-	// import Dialog from "./components/Dialog.vue";
+	import Dialog from "./components/Dialog.vue";
 	// 引入表头行数据
 	import tableHeader from "./table-header";
 	// 引入路由
 	import { useRoute } from "vue-router";
 	// 引入请求接口
-	import { tagApi } from "@/api/index.js";
+	import { categoryApi } from "@/api/index.js";
 
 	// 路由信息
 	const route = useRoute();
@@ -49,92 +49,114 @@
 	// 表单相关数据
 	const inputOptions = [
 		{
-			label: "分区名称",
-			prop: "partitionName",
+			label: "页签名称",
+			prop: "categoryName",
 			width: "100%",
 		},
 	];
 	const selectOptions = [
 		{
 			label: "状态",
-			prop: "state",
+			prop: "status",
 			width: "100%",
 			options: [
 				{
 					label: "已上线",
-					value: "online",
+					value: 1,
 				},
 				{
 					label: "已下线",
-					value: "offline",
+					value: 2,
 				},
 				{
 					label: "全部",
-					value: "all",
+					value: null,
+				},
+			],
+		},
+		{
+			label: "分区名称",
+			prop: "areaId",
+			width: "100%",
+			options: [
+				{
+					label: "青蛙乐园",
+					value: 1,
+				},
+				{
+					label: "牛蛙经验",
+					value: 2,
+				},
+				{
+					label: "蝌学备考",
+					value: 3,
 				},
 			],
 		},
 	];
 	let formData = ref({
-		tagName: "",
-		state: "all",
-		partitionName: "",
+		areaId: "",
+		status: "",
+		categoryName: "",
 	});
 	// 表单请求方法
-	let queryTableData = function (param) {
-		console.log(param);
+	let queryTableData = async function () {
+		const res = await categoryApi.searchCategory(paginationParams.value, formData.value);
+		// console.log(res);
+		tableData.value = res.data.list;
+		filter();
+		total.value = res.data.total;
 	};
 
-	// 表格数据
 	let tableData = ref([]);
+	let paginationParams = ref({ pageNum: 1, pageSize: 5 });
+	let total = ref(0);
 
 	// 初始化表格数据
 	async function initTableData() {
-		tableData.value = [
-			{
-				partitionId: "123",
-				partitionName: "青蛙乐园",
-				contentTotal: 8888,
-				state: "已上线",
-			},
-		];
-		paginationParams.value = {
-			pageNum: 1,
-			pageSize: 5,
-		};
-		total.value = tableData.value.length;
+		const res = await categoryApi.getCategoryList(paginationParams.value);
+		// console.log(res.data.list);
+		tableData.value = res.data.list;
+		filter();
+		total.value = res.data.total;
 	}
 	initTableData();
 
 	// 分页器
-	let total = ref(0);
-	let paginationParams = ref({
-		pageNum: 1,
-		pageSize: 5,
-	});
-	const handleSizeChange = function (pageSize) {
+	function handleSizeChange(pageSize) {
 		// paginationParams.value.pageNum = 1;
 		paginationParams.value.pageSize = pageSize;
 		queryTableData();
-	};
-	const handleCurrentPageChange = function (pageNum) {
+	}
+	function handleCurrentPageChange(pageNum) {
 		paginationParams.value.pageNum = pageNum;
 		queryTableData();
-	};
+	}
 
 	// 新增页签
-	// const dialogTableVisible = ref(false);
-	// const dialogTitle = ref("");
-	// const dialogTableValue = ref({});
-	// function addTag() {
-	// 	dialogTitle.value = "添加页签";
-	// 	dialogTableValue.value = {};
-	// 	dialogTableVisible.value = true;
-	// }
-	// // 编辑页签
-	// function editTag(item) {
-	// 	console.log(item);
-	// }
+	const dialogTableVisible = ref(false);
+	const dialogTitle = ref("");
+	const dialogTableValue = ref({});
+	function addCategory() {
+		dialogTitle.value = "添加页签";
+		dialogTableValue.value = {};
+		dialogTableVisible.value = true;
+	}
+	// 编辑页签
+	function editCategory(item) {
+		console.log(item);
+	}
+
+	// 过滤函数-将接口返回的数字类型数据转成中文
+	function filter() {
+		tableData.value.map(function (value) {
+			if (value.is_delete) {
+				value.is_delete = "已下线";
+			} else {
+				value.is_delete = "已上线";
+			}
+		});
+	}
 </script>
 
 <style lang="scss">

@@ -19,13 +19,15 @@ export default function (path) {
 			return "用户文章列表";
 		case "UserArticleDetail":
 			return "用户文章详情";
-		case "ArticleExamine":
+		case "BullfrogArticleExamine":
 			return "牛蛙内容审核";
+		case "BullfrogArticleDetail":
+			return "内容详情";
 		case "CommentManage":
 			return "评论区管理";
-		case "TagManage":
+		case "CategoryManage":
 			return "页签管理";
-		case "PartitionManage":
+		case "SubregionManage":
 			return "分区管理";
 		case "CarouselManage":
 			return "轮播图管理";

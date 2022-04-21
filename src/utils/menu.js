@@ -44,7 +44,7 @@ const MENU_LIST = [
 				authName: "牛蛙内容审核",
 				children: [],
 				order: null,
-				path: "article-examine",
+				path: "bullfrog-article-examine",
 			},
 			{
 				id: 24,
@@ -66,14 +66,14 @@ const MENU_LIST = [
 				authName: "页签管理",
 				children: [],
 				order: null,
-				path: "tag-manage",
+				path: "category-manage",
 			},
 			{
 				id: 32,
 				authName: "分区管理",
 				children: [],
 				order: null,
-				path: "partition-manage",
+				path: "subregion-manage",
 			},
 			{
 				id: 33,

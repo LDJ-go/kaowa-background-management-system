@@ -1,42 +1,42 @@
 export default [
 	{
-		prop: "partition",
+		prop: "subarea",
 		label: "分区",
 		// width: 80,
 	},
 	{
-		prop: "tag",
+		prop: "categoryName",
 		label: "页签",
 	},
 	{
-		prop: "articleTitle",
+		prop: "title",
 		label: "文章标题",
 	},
 	{
-		prop: "userName",
+		prop: "authorNickName",
 		label: "用户名称",
 	},
 	{
-		prop: "publish_time",
+		prop: "gmtCreate",
 		label: "发布时间",
 	},
 	{
-		prop: "visits",
+		prop: "viewCount",
 		label: "阅读数",
 		width: 70,
 	},
 	{
-		prop: "quotes",
+		prop: "tryingCount", // TODO
 		label: "复用数",
 		width: 70,
 	},
 	{
-		prop: "comments",
+		prop: "commentCount",
 		label: "评论数",
 		width: 70,
 	},
 	{
-		prop: "shares",
+		prop: "shareCount",
 		label: "分享数",
 		width: 70,
 	},
@@ -46,15 +46,15 @@ export default [
 		width: 70,
 	},
 	{
-		prop: "authenticationInfo",
+		prop: "certification-BAE",
 		label: "认证信息",
 	},
 	{
-		prop: "state",
+		prop: "status",
 		label: "状态",
 	},
 	{
-		prop: "operation-AE",
+		prop: "operation-BAE",
 		label: "操作",
 		width: 160,
 	},

@@ -86,12 +86,43 @@
 	let tableData = ref([]);
 	let tableReqParam = ref({
 		pageNum: 1,
-		pageSize: 2,
+		pageSize: 5,
 	});
 	let total = ref(0);
 
 	// 初始化表格数据，分页请求表格数据
-	async function initTableData() {}
+	async function initTableData() {
+		tableData.value = [
+			{
+				zone: "青蛙乐园",
+				categoryName: "考研",
+				title: "考研必看宝典",
+				authorNickName: "一路向北",
+				commentCount: "452",
+				fansCommentCount: "55",
+				status: "正常",
+			},
+			{
+				zone: "青蛙乐园",
+				categoryName: "考公",
+				title: "考公必看宝典",
+				authorNickName: "Peter",
+				commentCount: "452",
+				fansCommentCount: "45",
+				status: "正常",
+			},
+			{
+				zone: "牛蛙经验",
+				categoryName: "四六级",
+				title: "四六级必看宝典",
+				authorNickName: "十六",
+				commentCount: "662",
+				fansCommentCount: "65",
+				status: "正常",
+			},
+		];
+		total.value = 3;
+	}
 	initTableData();
 
 	// 分页器

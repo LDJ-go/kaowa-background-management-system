@@ -38,7 +38,7 @@
 			<el-button @click="submitForm">查询</el-button>
 			<el-button @click="resetForm">重置</el-button>
 			<el-button @click="routerToPublish" v-if="needPublishBtn">+发布</el-button>
-			<el-button @click="routerToAdd" v-if="needAdd">+新增</el-button>
+			<el-button @click="routerToAdd($event)" v-if="needAdd">+新增</el-button>
 		</div>
 	</div>
 </template>
@@ -76,7 +76,7 @@
 			required: false,
 		},
 	});
-	const emit = defineEmits(["query-table-data", "add-tag", "add-carousel"]);
+	const emit = defineEmits(["query-table-data", "add-category", "add-carousel"]);
 
 	let formData = ref(props.formData);
 
@@ -112,8 +112,9 @@
 	};
 
 	// 路由跳转至新增xxx页面
-	const routerToAdd = function () {
-		emit("add-tag");
+	const routerToAdd = function (event) {
+		cancelELButtonFocus(event);
+		emit("add-category");
 		emit("add-carousel");
 	};
 

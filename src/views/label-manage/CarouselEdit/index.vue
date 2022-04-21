@@ -53,8 +53,8 @@
 	const selectValue = carouselInfo ? ref(carouselInfo.kind) : ref("");
 	const selectOptions = [
 		{
-			value: "科学备考",
-			label: "科学备考",
+			value: "蝌学备考",
+			label: "蝌学备考",
 		},
 		{
 			value: "青蛙乐园",

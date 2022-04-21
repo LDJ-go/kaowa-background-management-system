@@ -85,9 +85,9 @@
 	// 表格数据
 	const tableData = ref([
 		{
-			accountName: "DJ",
-			name: "DJ",
-			phoneNumber: "18122226666",
+			accountName: "admin",
+			name: "admin",
+			phoneNumber: "181xxxx6666",
 			state: "正常",
 		},
 	]);

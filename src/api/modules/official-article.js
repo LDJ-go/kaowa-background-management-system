@@ -5,7 +5,7 @@ import request from "../axios";
 async function getOfficialArticle(params) {
 	return request({
 		url: "/portal/exampost/manage/list",
-		type: "GET",
+		method: "GET",
 		params,
 	});
 }
@@ -24,7 +24,7 @@ async function getOfficialArticleDetail(examPostId) {
 	});
 }
 
-async function editOfficialArticle(userId, data) {
+async function editOfficialArticle(userId = "1477994686370156544", data) {
 	return request({
 		url: `/portal/exampost/manage/publish/${userId}`,
 		method: "PUT",
@@ -32,7 +32,7 @@ async function editOfficialArticle(userId, data) {
 	});
 }
 
-async function deleteOfficialArticle(examPostId, userId) {
+async function deleteOfficialArticle(examPostId, userId = "1477994686370156544") {
 	return request({
 		url: `/portal/exampost/manage/delete/${examPostId}/${userId}`,
 		method: "DELETE",

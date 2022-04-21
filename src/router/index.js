@@ -63,9 +63,17 @@ const routes = [
 				],
 			},
 			{
-				path: "article-examine",
-				name: "ArticleExamine",
-				component: () => import("@/views/content-manage/ArticleExamine"),
+				path: "bullfrog-article-examine",
+				name: "BullfrogArticleExamine",
+				component: () => import("@/views/content-manage/BullfrogArticleExamine"),
+				children: [
+					{
+						path: "bullfrog-article-detail",
+						name: "BullfrogArticleDetail",
+						component: () => import("@/views/content-manage/BullfrogArticleDetail"),
+						props: true,
+					},
+				],
 			},
 			{
 				path: "comment-manage",
@@ -73,14 +81,14 @@ const routes = [
 				component: () => import("@/views/content-manage/CommentManage"),
 			},
 			{
-				path: "tag-manage",
-				name: "TagManage",
-				component: () => import("@/views/label-manage/TagManage"),
+				path: "category-manage",
+				name: "CategoryManage",
+				component: () => import("@/views/label-manage/CategoryManage"),
 			},
 			{
-				path: "partition-manage",
-				name: "PartitionManage",
-				component: () => import("@/views/label-manage/PartitionManage"),
+				path: "subregion-manage",
+				name: "SubregionManage",
+				component: () => import("@/views/label-manage/SubregionManage"),
 			},
 			{
 				path: "carousel-manage",

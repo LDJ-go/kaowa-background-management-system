@@ -69,7 +69,8 @@ module.exports = defineConfig({
 		// hotOnly: false,
 		proxy: {
 			"/api": {
-				target: "http://106.52.192.138:8111/",
+				// target: "http://106.52.192.138:8111/",
+				target: "https://api.dingdongtongxue.com/kaowa/",
 				ws: true, //代理websocked
 				changeOrigin: true,
 				pathRewrite: {

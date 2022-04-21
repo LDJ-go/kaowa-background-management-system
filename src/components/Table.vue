@@ -45,7 +45,7 @@
 					<div class="operation">
 						<span @click="toggleFix(row)" v-if="item.commentState == '已启用'">停用</span>
 						<span @click="toggleFix(row)">启动</span>
-						<span @click="routerToDetail(row, '/official-article-list/official-article-detail')">查看</span>
+						<span @click="routerToDetail(row, 'Name')">查看</span>
 					</div>
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-UAL'">
@@ -59,14 +59,25 @@
 						<span @click="routerToDetail(row, 'UserArticleDetail')">查看</span>
 					</div>
 				</template>
-				<template v-slot="{ row }" v-else-if="item.prop === 'operation-AE'">
+				<template v-slot="{ row }" v-else-if="item.prop === 'operation-BAE'">
 					<!-- 牛蛙内容审核 -->
 					<div class="operation">
-						<span @click="toggleFix(row)">上线</span>
-						<span @click="toggleFix(row)">下线</span>
-						<span @click="toggleFix(row)">删除</span>
-						<span @click="routerToDetail(row, '/user-article-list/user-article-detail')">查看</span>
+						<span>上线</span>
+						<span>下线</span>
+						<span>删除</span>
+						<span @click="routerToDetail(row, 'BullfrogArticleDetail')">查看</span>
 					</div>
+				</template>
+				<template v-slot="" v-else-if="item.prop === 'certification-BAE'">
+					<!-- 牛蛙内容审核-认证材料 -->
+					<!-- <div class="operation">
+						<span>查看</span>						
+					</div> -->
+					<span>已认证</span>
+				</template>
+				<template v-slot="" v-else-if="item.prop === 'subarea'">
+					<!-- 牛蛙内容审核-分区 -->
+					牛蛙经验
 				</template>
 				<template v-slot="{ row }" v-else-if="item.prop === 'operation-TM'">
 					<!-- 页签管理 -->
@@ -154,7 +165,9 @@
 	const routerToDetail = function (data, routerName) {
 		router.push({
 			name: routerName,
-			params: data,
+			params: {
+				id: data.id,
+			},
 		});
 	};
 	const deleteArticle = function ({ id }) {

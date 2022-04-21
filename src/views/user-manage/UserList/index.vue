@@ -201,13 +201,13 @@
 	let total = ref(0);
 
 	const handleSizeChange = function (pageSize) {
-		console.log(pageSize);
+		// console.log(pageSize);
 		tableReqParam.value.pageNum = 1;
 		tableReqParam.value.pageSize = pageSize;
 		initUserList();
 	};
 	const handleCurrentPageChange = function (pageNum) {
-		console.log(pageNum);
+		// console.log(pageNum);
 		tableReqParam.value.pageNum = pageNum;
 		initUserList();
 	};
@@ -215,6 +215,7 @@
 	// 初始化页面数据
 	const initUserList = async function () {
 		const res = await userApi.getUserList(tableReqParam.value);
+		console.log(res.data.list);
 		tableData.value = res.data.list;
 		filter();
 		total.value = res.data.total;

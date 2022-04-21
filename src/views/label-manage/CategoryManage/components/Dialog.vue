@@ -8,7 +8,7 @@
 		<template #footer>
 			<span class="dialog-footer">
 				<el-button @click="handleClose">取消</el-button>
-				<el-button type="primary" @click="handleConfirm">确认</el-button>
+				<el-button type="primary" @click="handleConfirm()">确认</el-button>
 			</span>
 		</template>
 	</el-dialog>
@@ -16,7 +16,7 @@
 
 <script setup>
 	import { defineEmits, ref, defineProps, watch } from "vue";
-	import { tagApi } from "@/api";
+	import { categoryApi } from "@/api";
 
 	import { ElMessage } from "element-plus";
 
